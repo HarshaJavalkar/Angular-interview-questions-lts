@@ -4819,9 +4819,22 @@ I first identify which stage failed: dependency install, compile, test, artifact
 
 #### 9. Can you tell me the differences between Angular versions?
 
-I would summarize the milestones that affect architecture and migration rather than reciting patch versions. AngularJS 1.x is a separate framework; Angular 2 was a rewrite. Angular 9 made Ivy the default, Angular 13 removed View Engine, Angular 14 introduced typed forms and previewed standalone APIs, and Angular 15 made standalone APIs stable. Angular 16 brought Signals into preview and stable hydration; Angular 17 introduced built-in template control flow and `@defer`; Angular 19 made standalone the default for new declarations; Angular 20 stabilized core Signals and zoneless; Angular 21 made zoneless the default and is the current LTS; Angular 22 is the latest release, with Signal Forms stable and the current change-detection defaults.
+| Version | What changed | Why it is useful |
+| --- | --- | --- |
+| AngularJS 1.x | Original JavaScript framework; separate from Angular 2+. | Relevant when maintaining or incrementally upgrading legacy applications. |
+| Angular 2 | Complete rewrite around TypeScript, components, templates, and dependency injection. | Established the architecture used by modern Angular. |
+| Angular 9 | Ivy became the default renderer and compiler. | Improved compilation and template diagnostics, and laid the foundation for removing View Engine. |
+| Angular 13 | View Engine and `entryComponents` were removed. | Simplified dynamic component creation and removed legacy compiler machinery. |
+| Angular 14 | Typed reactive forms and standalone components in preview. | Added stronger form type safety and introduced a path away from mandatory NgModules. |
+| Angular 15 | Standalone APIs became stable; functional router guards and interceptors were added. | Enabled simpler bootstrapping and less class boilerplate. |
+| Angular 16 | Signals entered preview and hydration became stable. | Introduced fine-grained reactivity and improved client startup for server-rendered pages. |
+| Angular 17 | Built-in template control flow and `@defer` entered preview. | Made templates clearer and enabled deferred loading of non-critical UI. |
+| Angular 19 | Standalone became the default for new declarations. | Reduced setup in newly generated applications while keeping NgModules supported. |
+| Angular 20 | Core Signals became stable; zoneless change detection became stable. | Made signal-based reactivity and running without Zone.js production-ready. |
+| Angular 21 (LTS) | Zoneless change detection became the default; Vitest became the default unit-test runner for new CLI projects. | Reduced Zone.js overhead and modernized the default testing setup. |
+| Angular 22 (latest) | Signal Forms became stable; `OnPush` became the default change-detection strategy. | Offers signal-based form state and makes efficient change detection the default for new components. |
 
-The exact changes and why they matter are in the [version comparison table](#what-are-the-differences-of-various-versions-of-angular). For an actual upgrade, I check Angular's support and compatibility tables, upgrade one major at a time when required, run `ng update` migrations, and test the application rather than assuming a feature is available in every version.
+As of November 24, 2026, Angular 21 is the current LTS release and Angular 22 is the latest. For a real upgrade, check the [official support schedule](https://angular.dev/reference/releases#actively-supported-versions) and [version compatibility table](https://angular.dev/reference/versions), use `ng update` migrations, and test the application rather than assuming a feature is available in every version. The [full version comparison table](#what-are-the-differences-of-various-versions-of-angular) includes additional historical milestones.
 
 ### Interview 2
 
