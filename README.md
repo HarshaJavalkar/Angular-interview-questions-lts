@@ -314,6 +314,7 @@
 |291| [What is the current default change detection strategy?](#what-is-the-current-default-change-detection-strategy)|
 |292| [What should you know about Angular's current testing tools?](#what-should-you-know-about-angulars-current-testing-tools)|
 |293| [How do you animate elements entering and leaving the DOM?](#how-do-you-animate-elements-entering-and-leaving-the-dom)|
+|294| [What is the difference between Subject and BehaviorSubject?](#what-is-the-difference-between-subject-and-behaviorsubject)|
 |Interview| [Interview experience questions and answers](#interview-experience-questions-and-answers)|
 
 1. ### What is Angular Framework?
@@ -1292,6 +1293,52 @@
 
 53. ### What are custom elements?
     Custom elements (or Web Components) are a Web Platform feature which extends HTML by allowing you to define a tag whose content is created and controlled by JavaScript code. The browser maintains a `CustomElementRegistry` of defined custom elements, which maps an instantiable JavaScript class to an HTML tag. Currently this feature is supported by Chrome, Firefox, Opera, and Safari, and available in other browsers through polyfills.
+
+    A custom element is a JavaScript class that extends `HTMLElement`, with its own template, styles, attributes, and lifecycle callbacks:
+
+    ```html
+    <!-- HTML usage -->
+    <hello-message name="Angular"></hello-message>
+    ```
+
+    ```javascript
+    class HelloMessage extends HTMLElement {
+      constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+      }
+
+      connectedCallback() {
+        const name = this.getAttribute('name') || 'World';
+        this.shadowRoot.innerHTML = `
+          <style>
+            p { color: #1976d2; font-weight: 600; }
+          </style>
+          <p>Hello, ${name}!</p>
+        `;
+      }
+
+      disconnectedCallback() {
+        // Called when the element is removed from the DOM.
+      }
+
+      static get observedAttributes() {
+        return ['name'];
+      }
+
+      attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'name' && oldValue !== newValue && this.isConnected) {
+          this.connectedCallback();
+        }
+      }
+    }
+
+    customElements.define('hello-message', HelloMessage);
+    ```
+
+    The browser creates an instance of `HelloMessage` when it encounters `<hello-message>`, calls `connectedCallback()` when it is inserted, and calls `disconnectedCallback()` when it is removed. Common lifecycle callbacks include `connectedCallback()`, `disconnectedCallback()`, `attributeChangedCallback()`, and `adoptedCallback()`.
+
+    **Custom elements vs. Angular Elements:** Custom Elements are a browser platform API. Angular Elements are a bridge that converts Angular components into standards-based custom elements using `createCustomElement()` and `customElements.define()`.
 
   **[⬆ Back to Top](#table-of-contents)**
 
@@ -4696,6 +4743,41 @@
      ```
 
      Angular applies `fade-in` when the element is added, applies `fade-out` when it is removed, and removes the element after the leave animation completes. The legacy `@angular/animations` trigger API was deprecated in Angular 20.2, with removal intended in Angular 23. See the [Angular animation guide](https://angular.dev/guide/animations).
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+294. ### What is the difference between Subject and BehaviorSubject?
+
+     A `Subject` and `BehaviorSubject` are both multicast RxJS types that can emit values to multiple subscribers. The key difference is that `BehaviorSubject` retains and immediately delivers the latest value.
+
+     | Subject | BehaviorSubject |
+     | --- | --- |
+     | Does not retain a value. | Retains the latest value. |
+     | New subscribers receive only future emissions. | New subscribers immediately receive the latest value or the initial value. |
+     | Does not require an initial value. | Requires an initial value. |
+     | Suitable for event streams such as notifications or button actions. | Suitable for state streams such as authentication state or selected filters. |
+
+     ```typescript
+     import { Subject, BehaviorSubject } from 'rxjs';
+
+     const subject = new Subject<string>();
+
+     subject.subscribe(value => console.log('Subject:', value));
+     subject.next('Hello');
+
+     subject.subscribe(value => console.log('Late subscriber:', value));
+     // The late subscriber does not receive the previous "Hello".
+
+     const state = new BehaviorSubject<string>('Initial');
+
+     state.subscribe(value => console.log('Behavior:', value));
+     // Immediately prints: Behavior: Initial
+
+     state.next('Updated');
+     // Existing and future subscribers receive "Updated".
+     ```
+
+     Use `Subject` for events that should only be delivered to subscribers that are listening at emission time. Use `BehaviorSubject` to expose current state and ensure a subscriber does not start without an initial or latest value.
 
      **[⬆ Back to Top](#table-of-contents)**
 
