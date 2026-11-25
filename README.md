@@ -1,6 +1,6 @@
 # Angular Interview Questions & Answers
 
-> **Version note:** This guide keeps framework fundamentals that remain valid, while version-sensitive answers reflect Angular 21 (the current LTS release) and call out Angular 22 (the latest release) where relevant. Angular releases and support status change; check the official [release policy](https://angular.dev/reference/releases) and [version compatibility table](https://angular.dev/reference/versions) before applying version-specific guidance.
+> **Version note:** This guide separates stable Angular fundamentals from APIs that may vary by release. Before using version-sensitive features, check the official [release policy](https://angular.dev/reference/releases) and [version compatibility table](https://angular.dev/reference/versions) for the target project's Angular version.
 
 > Click :star: if you like the project and follow [@SudheerJonna](https://twitter.com/SudheerJonna) for technical updates.
 
@@ -320,13 +320,29 @@
 
 1. ### What is Angular Framework?
 
-   Angular is a **TypeScript-based open-source** front-end platform that makes it easy to build web, mobile and desktop applications. The major features of this framework include declarative templates, dependency injection, end to end tooling which ease application development.
+   **Definition**
+
+   Angular is a TypeScript-based platform for building applications on the web and in supported browser environments. It combines declarative templates, components, dependency injection, routing, forms, HTTP tooling, and a CLI into an application framework.
+
+   **Important keywords/concepts**
+
+   A component owns a view and local behavior; services and providers share application logic; dependency injection resolves dependencies; and the template compiler, renderer, router, and change-detection system connect the application to the browser. Angular applications are compiled and bundled before deployment, and standalone APIs are the modern default for smaller or newly structured applications.
+
+   **When to use/real-world usage**
+
+   Angular is a strong fit for large, maintainable single-page applications, dashboards, internal tools, and applications that benefit from consistent conventions and built-in support for routing, forms, testing, and accessibility. A small static page may be better served by a simpler tool; the choice should account for team size, application complexity, requirements, and maintenance cost.
+
+   **Interview tip**
+
+   Describe Angular as an application platform rather than only a component library. Mention one complete flow—template, component class, service, HTTP, routing, or dependency injection—to show how the pieces work together.
 
    **[⬆ Back to Top](#table-of-contents)**
 
 2. ### What is the difference between AngularJS and Angular?
 
-   AngularJS (version 1.x) is a JavaScript framework, whereas Angular (version 2+) is a complete rewrite of AngularJS using TypeScript, providing better performance, mobile support, modularity, and a more modern architecture.
+   **Definition**
+
+   AngularJS means Angular 1.x. Angular is a separate, modern framework line that began at Angular 2 and uses TypeScript, components, modules or standalone APIs, and a newer compiler and rendering model. They are not drop-in replacements; migration requires adapting architecture and APIs.
 
    Here are some of the major differences in tabular format:-
 
@@ -338,11 +354,23 @@
    | No support for mobile platforms             | Fully supports mobile platforms          |
    | Difficult to build SEO friendly application | Ease to build SEO friendly applications  |
 
+   AngularJS uses two-way `ngModel` binding and scope/controller concepts, while modern Angular uses explicit component inputs and outputs, reactive or template-driven forms, dependency-injection providers, and a component tree.
+
+   **Interview tip**
+
+   Do not describe Angular merely as “AngularJS with a higher version number.” Explain that Angular was a rewrite and that migration also involves data binding, routing, dependency injection, forms, and build tooling.
+
    **[⬆ Back to Top](#table-of-contents)**
 
 3. ### What is TypeScript?
 
-   TypeScript is a strongly typed superset of JavaScript created by Microsoft that adds optional types, classes, async/await and many other features, and compiles to plain JavaScript. Angular is written entirely in TypeScript as a primary language.
+   **Definition**
+
+   TypeScript is a superset of JavaScript that adds static types and modern language features. Angular source and application APIs use TypeScript, and the TypeScript compiler or Angular build tooling transforms it to JavaScript before browser execution.
+
+   **Important keywords/concepts**
+
+   Useful concepts include interfaces, unions, generics, strict mode, type inference, `unknown`, and `enum` where appropriate. Types catch mistakes during development and improve editor tooling, but they do not provide runtime validation; validate external API and user input at boundaries.
    You can install TypeScript globally as
 
    ```cmd
@@ -363,6 +391,10 @@
 
    The greeter method allows only string type as argument.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
    **[⬆ Back to Top](#table-of-contents)**
 
 4. ### Write a pictorial diagram of Angular architecture?
@@ -370,16 +402,26 @@
    The main building blocks of an Angular application are shown in the diagram below:-
    ![ScreenShot](images/architecture.png)
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
    **[⬆ Back to Top](#table-of-contents)**
 
 5. ### What are the key components of Angular?
 
-   Angular has the key components below,
-   1. **Component:** These are the basic building blocks of an Angular application to control HTML views.
-   2. **Modules:** An Angular module is a set of angular basic building blocks like components, directives, services etc. An application is divided into logical pieces and each piece of code is called as "module" which perform a single task.
-   3. **Templates:** These represent the views of an Angular application.
-   4. **Services:** Are used to create components which can be shared across the entire application.
-   5. **Metadata:** This can be used to add more data to an Angular class.
+   Angular application building blocks include:
+
+   1. **Components:** control a view and its UI behavior.
+   2. **Templates:** combine HTML, bindings, control flow, and component APIs.
+   3. **Directives:** attach behavior or structure to DOM elements.
+   4. **Services and providers:** contain reusable application logic and expose dependencies through dependency injection.
+   5. **Modules or standalone APIs:** organize and connect components, directives, pipes, routing, and providers.
+   6. **Metadata:** decorators or compiler-recognized configuration describe a component or injectable's behavior.
+
+   **Interview tip**
+
+   Group modules and standalone APIs as application organization mechanisms, not as one of Angular's runtime UI elements. A component is the common place to connect template, state, and services.
 
    **[⬆ Back to Top](#table-of-contents)**
 
@@ -404,6 +446,10 @@
    <p myHighlight>Highlight me!</p>
    ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
    **[⬆ Back to Top](#table-of-contents)**
 
 7. ### What are components?
@@ -427,6 +473,10 @@
      title: string = "Welcome to Angular world";
    }
    ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
    **[⬆ Back to Top](#table-of-contents)**
 
@@ -483,6 +533,10 @@
      title: string = "Hello World";
    }
    ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
    **[⬆ Back to Top](#table-of-contents)**
 
@@ -659,6 +713,10 @@
               }
               ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
         **[⬆ Back to Top](#table-of-contents)**
         ````
 
@@ -736,10 +794,18 @@
 
     The above service uses Http service as a dependency.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 17. ### What is dependency injection in Angular?
     Dependency injection (DI), is an important application design pattern in which a class asks for dependencies from external sources rather than creating them itself. Angular comes with its own dependency injection framework for resolving dependencies( services or objects that a class needs to perform its function).So you can have your services depend on other services throughout your application.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -800,6 +866,10 @@
     }
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 20. ### What is the option to choose between inline and external template file?
@@ -811,6 +881,10 @@
     ```
     ng generate component hero -it
     ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -826,6 +900,10 @@
 
     **Current Angular:** `*ngFor` remains supported, but new templates can use the built-in `@for` block, which does not require importing `NgFor`. See [Question 284](#what-is-angulars-built-in-template-control-flow).
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 22. ### What is the purpose of `*ngIf` directive?
@@ -839,6 +917,10 @@
     **Note:** Angular isn't showing and hiding the message. It is adding and removing the paragraph element from the DOM. That improves performance, especially in the larger projects with many data bindings.
 
     **Current Angular:** `*ngIf` remains supported; the built-in `@if` block is the recommended control-flow syntax for new templates. See [Question 284](#what-is-angulars-built-in-template-control-flow).
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -854,6 +936,10 @@
       htmlSnippet = 'Template <script>alert("0wned")</script> <b>Syntax</b>';
     }
     ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -871,6 +957,10 @@
     ```
 
     In the example above, Angular evaluates the title and url properties and fills in the blanks, first displaying a bold application title and then a URL.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -890,6 +980,10 @@
     4. increment and decrement operators (++ and --)
 
     ***
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -911,6 +1005,10 @@
     5. the template expression operators
 
     ***
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -947,6 +1045,10 @@
     }
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 29. ### What is a parameterized pipe?
@@ -966,6 +1068,10 @@
     ```
 
     **Note:** The parameter value can be any valid template expression, such as a string literal or a component property.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -987,6 +1093,10 @@
     }
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 31. ### What is a custom pipe?
@@ -1007,6 +1117,10 @@
        ```javascript
        template: `{{someInputValue | myCustomPipe: someOtherValue}}`;
        ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1034,10 +1148,18 @@
         `;
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 33. ### What is the difference between pure and impure pipe?
     A pure pipe is only called when Angular detects a change in the value or the parameters passed to a pipe. For example, any changes to a primitive input value (String, Number, Boolean, Symbol) or a changed object reference (Date, Array, Function, Object). An impure pipe is called for every change detection cycle no matter whether the value or parameters changes. i.e, An impure pipe is called often, as often as every keystroke or mouse-move.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1054,10 +1176,18 @@
 
     Both approaches are supported; standalone applications do not require a bootstrapping module.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 35. ### What are observables?
     Observables are declarative which provide support for passing messages between publishers and subscribers in your application. They are mainly used for event handling, asynchronous programming, and handling multiple values. In this case, you define a function for publishing values, but it is not executed until a consumer subscribes to it. The subscribed consumer then receives notifications until the function completes, or until they unsubscribe.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1076,6 +1206,10 @@
     3. Intercept request and response
     4. Supports Observable APIs
     5. Supports streamlined error handling
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1143,6 +1277,10 @@ fetchUserProfile() {
 
     Now `HttpClient.get()` method returns an Observable of typed `HttpResponse` rather than just the `JSON` data.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 39. ### How do you perform Error handling?
@@ -1163,6 +1301,10 @@ fetchUserProfile() {
 
     It is always a good idea to give the user some meaningful feedback instead of displaying the raw error object returned from `HttpClient`.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 40. ### What is RxJS?
@@ -1175,6 +1317,10 @@ fetchUserProfile() {
     import { Observable, throwError } from "rxjs";
     import { catchError, retry } from "rxjs/operators";
     ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1205,6 +1351,10 @@ fetchUserProfile() {
     // => Observer got a complete notification
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 42. ### What is an observable?
@@ -1223,6 +1373,10 @@ fetchUserProfile() {
       }, 2000);
     });
     ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1246,6 +1400,10 @@ fetchUserProfile() {
     ```
 
     **Note:** If you don't supply a handler for a notification type, the observer ignores notifications of that type.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1284,6 +1442,10 @@ fetchUserProfile() {
     // This is, under the hood, `s
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 46. ### How do you perform error handling in observables?
@@ -1303,6 +1465,10 @@ fetchUserProfile() {
     });
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 47. ### What is the shorthand notation for subscribe method?
@@ -1319,6 +1485,10 @@ fetchUserProfile() {
     );
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 48. ### What are the utility functions provided by RxJS?
@@ -1329,6 +1499,10 @@ fetchUserProfile() {
     3. Mapping values to different types
     4. Filtering streams
     5. Composing multiple streams
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1373,15 +1547,27 @@ fetchUserProfile() {
          });
        ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 50. ### What will happen if you do not supply handler for the observer?
     Usually, an observer object can define any combination of `next`, `error`, and `complete` notification type handlers. If you don't supply a handler for a notification type, the observer just ignores notifications of that type.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 51. ### What are Angular elements?
     Angular elements are Angular components packaged as **custom elements** (a web standard for defining new HTML elements in a framework-agnostic way). Angular Elements host an Angular component, providing a bridge between the data and the logic defined in the component and the standard DOM APIs, thus, providing a way to use Angular components in `non-Angular environments`.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1456,6 +1642,10 @@ fetchUserProfile() {
 54. ### Do I need to bootstrap custom elements?
     No, custom elements bootstrap (or start) automatically when they are added to the DOM, and are automatically destroyed when removed from the DOM. Once a custom element is added to the DOM for any page, it looks and behaves like any other HTML element, and does not require any special knowledge of Angular.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 55. ### Explain how custom elements works internally?
@@ -1468,6 +1658,10 @@ fetchUserProfile() {
        The flow chart of the custom elements functionality would be as follows,
 
     ![CustomElement](images/customElement.png)
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1486,6 +1680,10 @@ fetchUserProfile() {
     The Component properties and logic maps directly into HTML attributes and the browser's event system. Let us describe them in two steps,
     1. The createCustomElement() API parses the component input properties with corresponding attributes for the custom element. For example, component @Input('myInputProp') converted as custom element attribute `my-input-prop`.
     2. The Component outputs are dispatched as HTML Custom Events, with the name of the custom event matching the output name. For example, component @Output() valueChanged = new EventEmitter() converted as custom element with dispatch event as "valueChanged".
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1508,6 +1706,10 @@ fetchUserProfile() {
        container.message = true;  // <-- ERROR: TypeScript knows this should be a string.
        container.greet = 'News';  // <-- ERROR: TypeScript knows there is no `greet` property on `container`.
        ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1622,10 +1824,18 @@ fetchUserProfile() {
     2. **Structural directives** — These directives change the DOM layout by adding and removing DOM elements.
     3. **Attribute directives** — These directives change the appearance or behavior of an element, component, or another directive.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 61. ### How do you create directives using CLI?
     You can use CLI command `ng generate directive` to create the directive class file. It creates the source file(`src/app/components/directivename.directive.ts`), the respective test file `.spec.ts` and declare the directive class file in root module.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1656,10 +1866,18 @@ fetchUserProfile() {
        ng serve
        ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 63. ### What is Angular Router?
     Angular Router is a mechanism in which navigation happens from one view to the next as users perform application tasks. It borrows the concepts or model of browser's application navigation. It enables developers to build Single Page Applications with multiple views and allow navigation between these views.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1671,6 +1889,10 @@ fetchUserProfile() {
     <base href="/" />
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 65. ### What are the router imports?
@@ -1680,6 +1902,10 @@ fetchUserProfile() {
     ```javascript
     import { RouterModule, Routes } from "@angular/router";
     ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1691,6 +1917,10 @@ fetchUserProfile() {
     <router-outlet></router-outlet>
     <!-- Routed components go here -->
     ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1707,6 +1937,10 @@ fetchUserProfile() {
     <router-outlet></router-outlet>
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 68. ### What are active router links?
@@ -1721,6 +1955,10 @@ fetchUserProfile() {
     </nav>
     <router-outlet></router-outlet>
     ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1740,6 +1978,10 @@ fetchUserProfile() {
       }
     }
     ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1782,6 +2024,10 @@ fetchUserProfile() {
     <Scroll>
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 71. ### What is activated route?
@@ -1799,6 +2045,10 @@ fetchUserProfile() {
       }
     }
     ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1834,6 +2084,10 @@ fetchUserProfile() {
     export class AppModule { }
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
     **[⬆ Back to Top](#table-of-contents)**
 
 73. ### What is the purpose of Wildcard route?
@@ -1846,15 +2100,27 @@ fetchUserProfile() {
     { path: '**', component: PageNotFoundComponent }
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 74. ### Do I need a Routing Module always?
     No, the Routing Module is a design choice. You can skip routing Module (for example, AppRoutingModule) when the configuration is simple and merge the routing configuration directly into the companion module (for example, AppModule). But it is recommended when the configuration is complex and includes specialized guard and resolver services.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 75. ### What is Angular Universal?
     Angular's server-side and hybrid rendering support is provided by `@angular/ssr`. It can render routes on the server (SSR), prerender them at build time (SSG), or render them in the browser (CSR), and supports selecting a rendering mode per route. Add it to an existing application with `ng add @angular/ssr`; Angular Universal is the older name for this Angular SSR capability.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1863,10 +2129,18 @@ fetchUserProfile() {
     1. Just-in-Time (JIT)
     2. Ahead-of-Time (AOT)
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 77. ### What is JIT?
     Just-in-Time (JIT) is a type of compilation that compiles your app in the browser at runtime. JIT compilation was the default until Angular 8, now default is AOT. When you run the ng build (build only) or ng serve (build and serve locally) CLI commands, the type of compilation (JIT or AOT) depends on the value of the aot property in your build configuration specified in angular.json. By default, aot is set to true.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1879,10 +2153,18 @@ fetchUserProfile() {
     ng serve
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 79. ### Why do we need compilation process?
     The Angular components and templates cannot be understood by the browser directly. Due to that Angular applications require a compilation process before they can run in a browser. For example, In AOT compilation, both Angular HTML and TypeScript code converted into efficient JavaScript code during the build phase before browser runs it.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1895,12 +2177,20 @@ fetchUserProfile() {
     4. **Detect template errors earlier:** Detects and reports template binding errors during the build step itself
     5. **Better security:** It compiles HTML templates and components into JavaScript. So there won't be any injection attacks.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 81. ### What are the ways to control AOT compilation?
     You can control your app compilation in two ways,
     1. By providing template compiler options in the `tsconfig.json` file
     2. By configuring Angular metadata with decorators
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1911,6 +2201,10 @@ fetchUserProfile() {
     3. Only call the functions supported by the compiler
     4. Decorated and data-bound class members must be public.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 83. ### What are the three phases of AOT?
@@ -1918,6 +2212,10 @@ fetchUserProfile() {
     1. **Code Analysis:** The compiler records a representation of the source
     2. **Code generation:** It handles the interpretation as well as places restrictions on what it interprets.
     3. **Validation:** In this phase, the Angular template compiler uses the TypeScript compiler to validate the binding expressions in templates.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1950,15 +2248,27 @@ fetchUserProfile() {
     If you still use arrow function, it generates an error node in place of the function. When the compiler later interprets this node, it reports an error to turn the arrow function into an exported function.
     **Note:** From Angular5 onwards, the compiler automatically performs this rewriting while emitting the .js file.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 85. ### What is the purpose of metadata json files?
     The metadata.json file can be treated as a diagram of the overall structure of a decorator's metadata, represented as an abstract syntax tree(AST). During the analysis phase, the AOT collector scan the metadata recorded in the Angular decorators and outputs metadata information in .metadata.json files, one per .d.ts file.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 86. ### Can I use any javascript feature for expression syntax in AOT?
     No, the AOT collector understands a subset of (or limited) JavaScript features. If an expression uses unsupported syntax, the collector writes an error node to the .metadata.json file. Later point of time, the compiler reports an error if it needs that piece of metadata to generate the application code.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -1983,6 +2293,10 @@ fetchUserProfile() {
     ```
 
     Remember that the compiler can’t fold everything. For example, spread operator on arrays, objects created using new keywords and function calls.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2014,6 +2328,10 @@ fetchUserProfile() {
     })
     export class TypicalModule {}
     ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2099,6 +2417,10 @@ fetchUserProfile() {
 90. ### What is metadata rewriting?
     Metadata rewriting is the process in which the compiler converts the expression initializing the fields such as useClass, useValue, useFactory, and data into an exported variable, which replaces the expression. Remember that the compiler does this rewriting during the emit of the .js file but not in definition files( .d.ts file).
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 91. ### How do you provide configuration inheritance?
@@ -2120,6 +2442,10 @@ fetchUserProfile() {
     }
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 92. ### How do you specify angular template compiler options?
@@ -2139,6 +2465,10 @@ fetchUserProfile() {
       }
     }
     ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2164,6 +2494,10 @@ fetchUserProfile() {
     my.component.ts.MyComponent.html(1,1): : Property 'contacts' does not exist on type 'User'. Did you mean 'contact'?
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 94. ### What is the purpose of any type cast function?
@@ -2175,6 +2509,10 @@ fetchUserProfile() {
     ```javascript
     template: "{{ $any(this).contacts.email }}";
     ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2198,6 +2536,10 @@ fetchUserProfile() {
     }
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 96. ### What is type narrowing?
@@ -2212,6 +2554,10 @@ fetchUserProfile() {
     }
     ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 97. ### How do you describe various dependencies in angular application?
@@ -2221,50 +2567,90 @@ fetchUserProfile() {
     2. **Support packages:** Third-party libraries that must be present for Angular apps to run.
     3. **Polyfill packages:** Polyfills plug gaps in a browser's JavaScript implementation.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 98. ### What is zone?
-    Zone.js is an execution-context library that patches asynchronous browser APIs so Angular can be notified when work may have changed application state. Zone-based change detection is still supported, but is no longer the default: Angular 21 and later use zoneless change detection by default. See [Question 285](#what-is-zoneless-change-detection).
+    Zone.js is an execution-context library that patches asynchronous browser APIs so Angular can be notified when work may have changed application state. Zone-based change detection is still supported, but is no longer the default: Angular releases should be checked because change-detection defaults can differ by version. In the project supported Angular version, zoneless updates should use signals, template events, input updates, or explicit change-detection notifications. See [Question 285](#what-is-zoneless-change-detection).
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
 99. ### What is the purpose of common module?
     The commonly-needed services, pipes, and directives provided by @angular/common module. Apart from these HttpClientModule is available under @angular/common/http.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 100. ### What is codelyzer?
      Codelyzer was a TSLint ruleset for Angular projects. TSLint and Codelyzer are obsolete and should not be used for new projects. Angular linting is configured through a lint builder; `angular-eslint` is the commonly used ESLint integration, and `ng lint` runs the lint target configured in the workspace.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 101. ### What is angular animation?
-     Angular supports CSS-based animations, including the compiler-supported `animate.enter` and `animate.leave` APIs for elements entering or leaving the DOM. The older `@angular/animations` trigger API was deprecated in Angular 20.2, with removal intended for Angular 23. For new code, prefer CSS and `animate.enter`/`animate.leave`; see [Question 293](#how-do-you-animate-elements-entering-and-leaving-the-dom).
+     Angular supports CSS-based animations, including compiler-supported APIs for elements entering or leaving the DOM. The legacy `@angular/animations` trigger API may be deprecated or unavailable in newer Angular releases, so for a new implementation prefer CSS and the enter/leave APIs supported by the target release; see [Question 293](#how-do-you-animate-elements-entering-and-leaving-the-dom).
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
 102. ### What are the steps to use animation module?
      For new code, use CSS with Angular's `animate.enter` and `animate.leave` template APIs; they do not require the legacy animation trigger setup. The old `BrowserAnimationsModule` plus `trigger()` workflow remains relevant only when maintaining existing code and is deprecated. See [Question 293](#how-do-you-animate-elements-entering-and-leaving-the-dom).
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 103. ### What is State function?
-     `state()` was part of the legacy `@angular/animations` trigger API for associating styles with named states. That API was deprecated in Angular 20.2 with removal intended in Angular 23; use CSS animations and `animate.enter`/`animate.leave` for new code.
+     `state()` was part of the legacy `@angular/animations` trigger API for associating styles with named states. That trigger API is legacy; use CSS animations and the enter/leave APIs supported by the target Angular version for new code.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
 104. ### What is Style function?
-     `style()` was a helper in the legacy `@angular/animations` trigger API for defining styles in animation states and transitions. The trigger API is deprecated in Angular 20.2 with removal intended in Angular 23; use standard CSS for new animations.
+     `style()` was a helper in the legacy `@angular/animations` trigger API for defining styles in animation states and transitions. The trigger API is legacy; use standard CSS for new animations.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
 105. ### What is the purpose of animate function?
-     `animate()` was used to define timing and easing in the legacy `@angular/animations` trigger API. The API was deprecated in Angular 20.2 with removal intended in Angular 23; use CSS transitions/keyframes with `animate.enter` and `animate.leave` for new code.
+     `animate()` was used to define timing and easing in the legacy `@angular/animations` trigger API. Use CSS transitions/keyframes with the enter/leave APIs supported by the target Angular version for new code.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
 106. ### What is transition function?
-     `transition()` was used in the legacy `@angular/animations` trigger API to define timing between named states. The trigger API was deprecated in Angular 20.2 with removal intended in Angular 23. For new animations, use CSS transitions or keyframes with Angular's enter/leave hooks.
+     `transition()` was used in the legacy `@angular/animations` trigger API to define timing between named states. The trigger API is legacy. For new animations, use CSS transitions or keyframes with the enter/leave hooks supported by the target Angular version.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2287,10 +2673,18 @@ fetchUserProfile() {
         }
      ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 108.  ### What is a service worker and its role in Angular?
       A service worker is a script that runs in the web browser and manages caching for an application. Starting from 5.0.0 version, Angular ships with a service worker implementation. Angular service worker is designed to optimize the end user experience of using an application over a slow or unreliable network connection, while also minimizing the risks of serving outdated content.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2302,6 +2696,10 @@ fetchUserProfile() {
       3. When you refresh the application, it loads the latest fully cached version
       4. When changes are published then it immediately updates in the background
       5. Service workers saves the bandwidth by downloading the resources only when they changed.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2336,6 +2734,10 @@ fetchUserProfile() {
          }
          ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 112.  ### What are the features included in ivy preview?
@@ -2345,6 +2747,10 @@ fetchUserProfile() {
       2. Faster re-build time
       3. Improved payload size
       4. Improved template type checking
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2369,10 +2775,18 @@ fetchUserProfile() {
       }
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 114.  ### What is Angular Language Service?
       The Angular Language Service is a way to get completions, errors, hints, and navigation inside your Angular templates whether they are external in an HTML file or embedded in annotations/decorators in a string. It has the ability to autodetect that you are opening an Angular file, reads your `tsconfig.json` file, finds all the templates you have in your application, and then provides all the language services.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2394,10 +2808,18 @@ fetchUserProfile() {
 
       **Note:** The completion and diagnostic services works for .ts files only. You need to use custom plugins for supporting HTML files.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 116.  ### Is there any editor support for Angular Language Service?
       Yes, Angular Language Service is currently available for Visual Studio Code and WebStorm IDEs. You need to install angular language service using an extension and devDependency respectively. In sublime editor, you need to install typescript which has has a language service plugin model.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2415,6 +2837,10 @@ fetchUserProfile() {
       3. **Navigation:** Navigation allows you to hover a component, directive, module and then click and press F12 to go directly to its definition.
 
          ![ScreenShot](images/language-navigation.gif)
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2445,6 +2871,10 @@ fetchUserProfile() {
 
       **Note:** You may need to refactor your initial scaffolding web worker code for sending messages to and from.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 119.  ### What are the limitations with web workers?
@@ -2453,20 +2883,36 @@ fetchUserProfile() {
       1. Some environments or platforms(like @angular/platform-server) used in Server-side Rendering, don't support Web Workers. In this case you need to provide a fallback mechanism to perform the computations to work in this environments.
       2. Running Angular in web worker using `@angular/platform-webworker` is not yet supported in Angular CLI.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 120.  ### What is Angular CLI Builder?
       In Angular8, the CLI Builder API is stable and available to developers who want to customize the `Angular CLI` by adding or modifying commands. For example, you could supply a builder to perform an entirely new task, or to change which third-party tool is used by an existing command.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
 121.  ### What is a builder?
       A builder function is a function that uses the `Architect API` to perform a complex process such as "build" or "test". The builder code is defined in an npm package. For example, BrowserBuilder runs a webpack build for a browser target and KarmaBuilder starts the Karma server and runs a webpack build for unit tests.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 122.  ### How do you invoke a builder?
       The Angular CLI command `ng run` is used to invoke a builder with a specific target configuration. The workspace configuration file, `angular.json`, contains default configurations for built-in builders.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2479,6 +2925,10 @@ fetchUserProfile() {
       ng g appShell [options]
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 124.  ### What are the case types in Angular?
@@ -2488,6 +2938,10 @@ fetchUserProfile() {
       2. **UpperCamelCase (or PascalCase):** Class names, including classes that define components, interfaces, NgModules, directives, and pipes uses uppercase on the first letter of the item.
       3. **dash-case (or "kebab-case"):** The descriptive part of file names, component selectors uses dashes between the words. For example, "app-user-list".
       4. **UPPER_UNDERSCORE_CASE:** All constants uses capital letters connected with underscores. For example, "NUMBER_OF_USERS".
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2502,6 +2956,10 @@ fetchUserProfile() {
       4. @Injectable()
       5. @NgModule()
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 126.  ### What are class field decorators?
@@ -2512,6 +2970,10 @@ fetchUserProfile() {
       @Input() myProperty;
       @Output() myEvent = new EventEmitter();
       ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2527,6 +2989,10 @@ fetchUserProfile() {
       ],
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 128.  ### What are the restrictions on declarable classes?
@@ -2536,6 +3002,10 @@ fetchUserProfile() {
       2. Ngmodule classes
       3. Service classes
       4. Helper classes
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2551,6 +3021,10 @@ fetchUserProfile() {
       const url = injector.get(BASE_URL);
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 130.  ### What is Angular DSL?
@@ -2561,6 +3035,10 @@ fetchUserProfile() {
       1. `()`: Used for Output and DOM events.
       2. `[]`: Used for Input and specific DOM element attributes.
       3. `*`: Structural directives(*ngFor or *ngIf) will affect/change the DOM structure.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2586,11 +3064,19 @@ fetchUserProfile() {
      subject.next(2);
      ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 132.  ### What is Bazel tool?
       Bazel is a powerful build tool developed and massively used by Google and it can keep track of the dependencies between different packages and build targets. In Angular8, you can build your CLI application with Bazel.
       **Note:** The Angular framework itself is built with Bazel.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2600,6 +3086,10 @@ fetchUserProfile() {
       1. It creates the possibility of building your back-ends and front-ends with the same tool
       2. The incremental build and tests
       3. It creates the possibility to have remote builds and cache on a build farm.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2616,6 +3106,10 @@ ng new --collection=@angular/bazel
 `
         When you use ng build and ng serve commands, Bazel is used behind the scenes and outputs the results in dist/bin folder.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 135. ### How do you run Bazel directly?
@@ -2628,6 +3122,10 @@ ng new --collection=@angular/bazel
      bazel run [target]: Compile the program represented by target and then run it.
      ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 136. ### What is platform in Angular?
@@ -2637,10 +3135,18 @@ ng new --collection=@angular/bazel
      1. While running in the browser, it uses `platform-browser` package.
      2. When SSR(server-side rendering ) is used, it uses `platform-server` package for providing web server implementation.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 137. ### What happens if I import the same module twice?
      If multiple modules imports the same module then angular evaluates it only once (When it encounters the module first time). It follows this condition even the module appears at any level in a hierarchy of imported NgModules.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2661,6 +3167,10 @@ ng new --collection=@angular/bazel
        console.log(this.input.nativeElement.value);
      }
      ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -2704,6 +3214,10 @@ ng new --collection=@angular/bazel
      }
      ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 140.  ### How do you pass headers for HTTP client?
@@ -2728,11 +3242,19 @@ ng new --collection=@angular/bazel
       return this._http.get<any[]>('someUrl', { headers: headers, params: params })
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 141.  ### What is the purpose of differential loading in CLI?
 
       Differential loading was an Angular CLI approach that generated separate modern and ES5 bundles for different browsers. It is historical: current Angular targets modern browsers and does not use this two-bundle strategy. Check the [current browser support policy](https://angular.dev/reference/versions#browser-support) when choosing browser targets.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -2750,6 +3272,10 @@ ng new --collection=@angular/bazel
       ```javascript
       {path: ‘user’, loadChildren: () => import(‘./users/user.module’).then(m => m.UserModule)};
       ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -2774,6 +3300,10 @@ ng new --collection=@angular/bazel
         }
       ];
       ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -2810,6 +3340,10 @@ ng new --collection=@angular/bazel
       addBuildTargetOption();
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 145.  ### How do you upgrade angular version?
@@ -2819,6 +3353,10 @@ ng new --collection=@angular/bazel
       ```bash
       $ ng update @angular/cli @angular/core
       ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -2833,6 +3371,10 @@ ng new --collection=@angular/bazel
       ```
 
       It supports the most recent two versions of all major browsers. The latest version of Angular material is 8.1.1
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -2853,11 +3395,19 @@ ng new --collection=@angular/bazel
       export class AppModule {}
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 148.  ### What is NgUpgrade?
 
       NgUpgrade is a library put together by the Angular team, which you can use in your applications to mix and match AngularJS and Angular components and bridge the AngularJS and Angular dependency injection systems.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -2875,6 +3425,10 @@ ng new --collection=@angular/bazel
       ```
 
       **Note:** A chrome browser also opens and displays the test output in the "Jasmine HTML Reporter".
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -2900,6 +3454,10 @@ import 'web-animations-js';
       1. **ApplicationRef.tick():** Invoke this method to explicitly process change detection and its side-effects. It check the full component tree.
       2. **NgZone.run(callback):** It evaluate the callback function inside the Angular zone.
       3. **ChangeDetectorRef.detectChanges():** It detects only the components and it's children.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -2929,10 +3487,10 @@ import 'web-animations-js';
       | Angular 18          | Built-in control flow became stable; zoneless change detection and material 3 support were introduced in preview.                      | Made template control flow simpler and opened a route to applications without Zone.js.                                |
       | Angular 19          | Standalone became the default for new declarations; incremental hydration and more signal APIs advanced.                               | Reduced setup for new apps and allowed more targeted hydration/reactivity.                                            |
       | Angular 20          | Core signal APIs became stable; incremental hydration and route-level rendering matured; zoneless became stable.                       | Made signal-based reactivity and hybrid rendering ready for production adoption.                                      |
-      | Angular 21 (LTS)    | Zoneless change detection became the default; Vitest became the default unit-test runner for new CLI projects.                         | Reduces Zone.js overhead and modernizes the default testing setup.                                                    |
-      | Angular 22 (latest) | Signal Forms became stable; zoneless remains the default, with `OnPush` as the default strategy and `Default` renamed to `Eager`.      | Gives new projects signal-based form state and makes the recommended change-detection behavior explicit.              |
+      | Angular LTS releases    | Zoneless change detection became the default; Vitest became the default unit-test runner for new CLI projects.                         | Reduces Zone.js overhead and modernizes the default testing setup.                                                    |
+      | Angular current releases | Signal Forms became stable; zoneless remains the default, with `OnPush` as the default strategy and `Default` renamed to `Eager`.      | Gives new projects signal-based form state and makes the recommended change-detection behavior explicit.              |
 
-      As of November 24, 2026, Angular 21 is the LTS release and Angular 22 is the latest release. Angular 20 LTS support is scheduled to end on November 28, 2026. Consult the official [support schedule](https://angular.dev/reference/releases#actively-supported-versions) before planning an upgrade; old major versions listed above are historical, not supported targets.
+      Check the official [support schedule](https://angular.dev/reference/releases#actively-supported-versions) before planning an upgrade. The major-version examples above are historical, and a production upgrade must confirm support, migration steps, and third-party compatibility for the target release.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -2946,17 +3504,29 @@ import 'web-animations-js';
       5. You should Use DOM Sanitizer.
       6. You should Preventing CSRF or XSRF attacks.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 154.  ### What is the reason to deprecate Web Tracing Framework?
 
       Angular has supported the integration with the Web Tracing Framework (WTF) for the purpose of performance testing. Since it is not well maintained and failed in majority of the applications, the support is deprecated in latest releases.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 155.  ### What is the reason to deprecate web worker packages?
 
       Both `@angular/platform-webworker` and `@angular/platform-webworker-dynamic` are officially deprecated, the Angular team realized it's not good practice to run the Angular application on Web worker
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -2970,11 +3540,19 @@ import 'web-animations-js';
 
       It reports the CLI, Node.js, and installed Angular package versions. In a workspace, compare these with the [official compatibility table](https://angular.dev/reference/versions).
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 157.  ### What is the browser support for Angular?
 
       Angular supports the modern desktop and mobile browsers listed in its [current compatibility table](https://angular.dev/reference/versions#browser-support). Internet Explorer is not supported. Check the compatibility table for the exact browser and runtime versions supported by the Angular major version in your project.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -2982,11 +3560,19 @@ import 'web-animations-js';
 
       It's a scaffolding library that defines how to generate or transform a programming project by creating, modifying, refactoring, or moving files and code. It defines rules that operate on a virtual file system called a tree.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 159.  ### What is rule in Schematics?
 
       In schematics world, it's a function that operates on a file tree to create, delete, or modify files in a specific manner.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -2998,6 +3584,10 @@ import 'web-animations-js';
       npm install -g @angular-devkit/schematics-cli
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 161.  ### What are the best practices for security in angular?
@@ -3007,17 +3597,29 @@ import 'web-animations-js';
       2. Don't modify your copy of Angular
       3. Avoid Angular APIs marked in the documentation as “Security Risk.”
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 162.  ### What is Angular security model for preventing XSS attacks?
 
       Angular treats all values as untrusted by default. i.e, Angular sanitizes and escapes untrusted values When a value is inserted into the DOM from a template, via property, attribute, style, class binding, or interpolation.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 163.  ### What is the role of template compiler for prevention of XSS attacks?
 
       The offline template compiler prevents vulnerabilities caused by template injection, and greatly improves application performance. So it is recommended to use offline template compiler in production deployments without dynamically generating any template.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3029,11 +3631,19 @@ import 'web-animations-js';
       3. **URL:** It is used for URL properties such as `<a href>`.
       4. **Resource URL:** It is a URL that will be loaded and executed as code such as `<script src>`.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 165.  ### What is Sanitization? Does Angular support it?
 
       **Sanitization** is the inspection of an untrusted value, turning it into a value that's safe to insert into the DOM. Yes, Angular supports sanitization. It sanitizes untrusted values for HTML, styles, and URLs but sanitizing resource URLs isn't possible because they contain arbitrary code.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3054,6 +3664,10 @@ import 'web-animations-js';
       ```
 
       Unfortunately this property could cause Cross Site Scripting (XSS) security bugs when improperly handled.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3079,6 +3693,10 @@ import 'web-animations-js';
 
       Even though innerHTML binding create a chance of XSS attack, Angular recognizes the value as unsafe and automatically sanitizes it.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 168.  ### How do you prevent automatic sanitization?
@@ -3100,11 +3718,19 @@ import 'web-animations-js';
         this.trustedUrl = sanitizer.bypassSecurityTrustUrl(this.dangerousUrl);
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 169.  ### Is it safe to use direct DOM API methods in terms of security?
 
       No,the built-in browser DOM APIs or methods don't automatically protect you from security vulnerabilities. In this case it is recommended to use Angular templates instead of directly interacting with DOM. If it is unavoidable then use the built-in Angular sanitization functions.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3112,11 +3738,19 @@ import 'web-animations-js';
 
       `DomSanitizer` is used to help preventing Cross Site Scripting Security bugs (XSS) by sanitizing values to be safe to use in the different DOM contexts.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 171.  ### How do you support server side XSS protection in Angular application?
 
       The server-side XSS protection is supported in an angular application by using a templating language that automatically escapes values to prevent XSS vulnerabilities on the server. But don't use a templating language to generate Angular templates on the server side which creates a high risk of introducing template-injection vulnerabilities.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3125,6 +3759,10 @@ import 'web-animations-js';
       Angular has built-in support for preventing http level vulnerabilities such as as cross-site request forgery (CSRF or XSRF) and cross-site script inclusion (XSSI). Even though these vulnerabilities need to be mitigated on server-side, Angular provides helpers to make the integration easier on the client side.
       1. HttpClient supports a token mechanism used to prevent XSRF attacks
       2. HttpClient library recognizes the convention of prefixed JSON responses(which non-executable js code with ")]}',\\n" characters) and automatically strips the string ")]}',\\n" from all responses before further parsing
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3169,6 +3807,10 @@ import 'web-animations-js';
       export class AppModule {}
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 174.  ### What are the applications of HTTP interceptors?
@@ -3180,6 +3822,10 @@ import 'web-animations-js';
       4. Fake backend
       5. URL transformation
       6. Modifying headers
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3195,6 +3841,10 @@ import 'web-animations-js';
       ```
 
       The interceptors will be called in the order in which they were provided. i.e, MyFirstInterceptor will be called first in the above interceptors configuration.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3220,6 +3870,10 @@ import 'web-animations-js';
 
       NgModule applications can configure the same provider in the root module. Class-based interceptors are also supported; register them with `HTTP_INTERCEPTORS` and configure `provideHttpClient(withInterceptorsFromDi())` when using the provider-based setup.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 177.  ### How does Angular simplify Internationalization?
@@ -3229,6 +3883,10 @@ import 'web-animations-js';
       2. Preparing text in component templates for translation.
       3. Handling plural forms of words.
       4. Handling alternative text.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3248,6 +3906,10 @@ import 'web-animations-js';
 
       registerLocaleData(localeDe, "de");
       ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3299,6 +3961,10 @@ import 'web-animations-js';
 
       **Note:** Remember that i18n is not an Angular directive.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 181.  ### What is the purpose of custom id?
@@ -3319,6 +3985,10 @@ import 'web-animations-js';
       ```javascript
       <h1 i18n="@@welcomeHeader">Hello i18n!</h1>
       ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3350,6 +4020,10 @@ import 'web-animations-js';
       <h2>Guten Morgen</h2>
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 183.  ### Can I translate text without creating an element?
@@ -3364,6 +4038,10 @@ import 'web-animations-js';
 
       Remember that `<ng-container>` is transformed into an html comment
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 184.  ### How can I translate attribute?
@@ -3375,6 +4053,10 @@ import 'web-animations-js';
       ```
 
       By the way, you can also assign meaning, description and id with the i18n-x="<meaning>|<description>@@<id>" syntax.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3389,6 +4071,10 @@ import 'web-animations-js';
       6. many
       7. other
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 186.  ### What is select ICU expression?
@@ -3400,6 +4086,10 @@ import 'web-animations-js';
       ```javascript
       <span i18n>The person is {residenceStatus, select, citizen {citizen} permanent resident {permanentResident} foreigner {foreigner}}</span>
       ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3437,6 +4127,10 @@ import 'web-animations-js';
       });
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 188.  ### How do you provide build configuration for multiple locales?
@@ -3456,6 +4150,10 @@ import 'web-animations-js';
         }
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 189.  ### What is an angular library?
@@ -3464,11 +4162,19 @@ import 'web-animations-js';
 
       **Note:** You can create own third party library and publish it as npm package to be used in an Application.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 190.  ### What is AOT compiler?
 
       The AOT compiler is part of a build process that produces a small, fast, ready-to-run application package, typically for production. It converts your Angular HTML and TypeScript code into efficient JavaScript code during the build phase before the browser downloads and runs that code.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3482,11 +4188,19 @@ import 'web-animations-js';
       }
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 192.  ### What is TestBed?
 
-      `TestBed` is Angular's API for configuring a test environment and testing components, services, dependency injection, and asynchronous behavior. It is independent of the test runner. New Angular CLI projects use Vitest by default starting in Angular 21, while existing workspaces may still use Jasmine/Karma or another configured runner.
+      `TestBed` is Angular's API for configuring a test environment and testing components, services, dependency injection, and asynchronous behavior. It is independent of the test runner. A workspace may use Vitest, Jasmine/Karma, or another configured runner; check the Angular CLI target and project configuration rather than assuming a runner.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3494,11 +4208,19 @@ import 'web-animations-js';
 
       Protractor was Angular's end-to-end testing framework, but it has been discontinued and is not recommended for new projects. Use a maintained browser automation tool such as Playwright or Cypress instead; Angular applications can be tested with either.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 194.  ### What is collection?
 
       Collection is a set of related schematics collected in an npm package. For example, `@schematics/angular` collection is used in Angular CLI to apply transforms to a web-app project. You can create your own schematic collection for customizing angular projects.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3554,6 +4276,10 @@ import 'web-animations-js';
          }
          ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 197.  ### What is the reason for No provider for HTTP exception?
@@ -3570,6 +4296,10 @@ import 'web-animations-js';
 
       In an NgModule-based application, import `HttpClientModule` in the root module. Avoid configuring both approaches redundantly.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 198.  ### What is router state?
@@ -3584,6 +4314,10 @@ import 'web-animations-js';
       ```
 
       You can access the current RouterState from anywhere in the Angular app using the Router service and the routerState property.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3601,6 +4335,10 @@ import 'web-animations-js';
       ng set defaults.styleExt scss
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 200.  ### What is the purpose of hidden property?
@@ -3613,11 +4351,19 @@ import 'web-animations-js';
       </div>
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 201.  ### What is the difference between ngIf and hidden property?
 
       The main difference is that \*ngIf will remove the element from the DOM, while [hidden] actually plays with the CSS style by setting `display:none`. Generally it is expensive to add and remove stuff from the DOM for frequent actions.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3643,6 +4389,10 @@ import 'web-animations-js';
       }
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 203.  ### What is index property in ngFor directive?
@@ -3654,6 +4404,10 @@ import 'web-animations-js';
       ```javascript
       <div *ngFor="let todo of todos; let i=index">{{i + 1}} - {{todo.name}}</div>
       ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3675,6 +4429,10 @@ import 'web-animations-js';
       trackByTodos(index: number, item: Todo): number { return todo.id; }
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 205.  ### What is the purpose of ngSwitch directive?
@@ -3693,6 +4451,10 @@ import 'web-animations-js';
       </div>
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 206.  ### Is it possible to do aliasing for inputs and outputs?
@@ -3709,6 +4471,10 @@ import 'web-animations-js';
          @Output('completedEvent') outputEvent1 = new EventEmitter<string>();
          ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 207.  ### What is safe navigation operator?
@@ -3723,6 +4489,10 @@ import 'web-animations-js';
 
       Using this safe navigation operator, Angular framework stops evaluating the expression when it hits the first null value and renders the view without any errors.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 208.  ### Is any special configuration required for Angular9?
@@ -3732,6 +4502,10 @@ import 'web-animations-js';
       ```javascript
       "angularCompilerOptions": {    "enableIvy": true  }
       ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3745,6 +4519,10 @@ import 'web-animations-js';
       TestBed.inject(ChangeDetectorRef); // returns ChangeDetectorRef
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 210.  ### Is mandatory to pass static flag for ViewChild?
@@ -3756,6 +4534,10 @@ import 'web-animations-js';
       @ViewChild(ChildDirective, { static: false }) child: ChildDirective; //Angular8 usage
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 211.  ### What are the list of template expression operators?
@@ -3765,11 +4547,19 @@ import 'web-animations-js';
       2. Safe navigation operator
       3. Non-null assertion operator
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 212.  ### What is the precedence between pipe and ternary operators?
 
       The pipe operator has a higher precedence than the ternary operator (?:). For example, the expression `first ? second : third | fourth` is parsed as `first ? second : (third | fourth)`.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3777,11 +4567,19 @@ import 'web-animations-js';
 
       "Entry component" is a historical term for a component Angular created imperatively, such as a root or routed component. With Ivy, Angular compiles components without an `entryComponents` list or `ComponentFactoryResolver`. For dynamic rendering, use APIs such as `ViewContainerRef.createComponent()` or `createComponent()`.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 214.  ### What is a bootstrapped component?
 
       A bootstrapped component is the application's root component. Standalone applications pass it to `bootstrapApplication(AppComponent)`; NgModule-based applications list it in the root module's `bootstrap` array and call `bootstrapModule()`. The root component does not need an `entryComponents` declaration.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3805,11 +4603,19 @@ import 'web-animations-js';
       }
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 216.  ### Is it necessary for bootstrapped component to be entry component?
 
       "Entry component" is no longer a configuration requirement with Ivy. The root component is specified directly to `bootstrapApplication()` or in an NgModule's `bootstrap` array; it does not need to be added to `entryComponents`.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3828,11 +4634,19 @@ import 'web-animations-js';
 
       Current Angular does not require adding routed components to an `entryComponents` array. The router creates the configured component as part of route activation.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 218.  ### Why is not necessary to use entryComponents array every time?
 
       You do not need an `entryComponents` array in current Angular. Ivy removed that requirement for dynamically rendered and routed components; use `ViewContainerRef.createComponent()` or the router APIs as needed.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3840,11 +4654,19 @@ import 'web-animations-js';
 
       No. Ivy removed the requirement starting in Angular 9, and Angular 13 removed the `entryComponents` metadata property along with View Engine. This is a historical Angular 9 migration question; current applications should not add this array.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 220.  ### Is it all components generated in production build?
 
       Angular's compiler and build optimizer include application code needed by the bootstrapped application, its templates, routes, and other reachable references. Unused code can be removed by tree-shaking; there is no need to maintain an `entryComponents` list to control production output.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3852,17 +4674,29 @@ import 'web-animations-js';
 
       The Angular compiler is used to convert the application code into JavaScript code. It reads the template markup, combines it with the corresponding component class code, and emits component factories which creates JavaScript representation of the component along with elements of @Component metadata.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 222.  ### What is the role of ngModule metadata in compilation process?
 
       The `@NgModule` metadata is used to tell the Angular compiler what components to be compiled for this module and how to link this module with other modules.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 223.  ### How does angular finds components, directives and pipes?
 
       The Angular compiler finds a component or directive in a template when it can match the selector of that component or directive in that template. Whereas it finds a pipe if the pipe's name appears within the pipe syntax of the template HTML.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3871,6 +4705,10 @@ import 'web-animations-js';
       The Angular core libraries and third-party libraries are available as NgModules.
       1. Angular libraries such as FormsModule, HttpClientModule, and RouterModule are NgModules.
       2. Many third-party libraries such as Material Design, Ionic, and AngularFire2 are NgModules.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3897,6 +4735,10 @@ import 'web-animations-js';
 
       **Note:** The "Module" suffix shouldn't present in the name because the CLI appends it.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 226.  ### What are the imported modules in CLI generated feature modules?
@@ -3904,6 +4746,10 @@ import 'web-animations-js';
       In the CLI generated feature module, there are two JavaScript import statements at the top of the file
       1. **NgModule:** InOrder to use the `@NgModule` decorator
       2. **CommonModule:** It provides many common directives such as `ngIf` and `ngFor`.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3926,6 +4772,10 @@ import 'web-animations-js';
       1. If you use a component without declaring it, Angular returns an error message.
       2. If you try to declare the same class in more than one module then compiler emits an error.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 229.  ### What are the steps to use declaration elements?
@@ -3935,6 +4785,10 @@ import 'web-animations-js';
       2. Import it into the appropriate module.
       3. Declare it in the @NgModule declarations array.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 230.  ### What happens if browserModule used in feature module?
@@ -3942,6 +4796,10 @@ import 'web-animations-js';
       If you do import `BrowserModule` into a lazy loaded feature module, Angular returns an error telling you to use `CommonModule` instead. Because BrowserModule’s providers are for the entire app so it should only be in the root module, not in feature module. Whereas Feature modules only need the common directives in CommonModule.
 
       ![ScreenShot](images/browser-module-error.gif)
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3953,6 +4811,10 @@ import 'web-animations-js';
       3. **Routing:** It provides routing configuration for another module.
       4. **Service:** It provides utility services such as data access and messaging(For example, HttpClientModule)
       5. **Widget:** It makes components, directives, and pipes available to external modules(For example, third-party libraries such as Material UI)
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -3975,11 +4837,19 @@ import 'web-animations-js';
       export class MyService {}
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 233.  ### What is the recommendation for provider scope?
 
       You should always provide your service in the root injector unless there is a case where you want the service to be available only if you import a particular @NgModule.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -4011,6 +4881,10 @@ import 'web-animations-js';
          export class SomeModule {}
          ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 235.  ### How do you provide a singleton service?
@@ -4037,6 +4911,10 @@ import 'web-animations-js';
          })
          ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 236.  ### What are the different ways to remove duplicate service registration?
@@ -4046,11 +4924,19 @@ import 'web-animations-js';
       2. Separate your services into their own module.
       3. Define forRoot() and forChild() methods in the module.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 237.  ### How does forRoot method helpful to avoid duplicate router instances?
 
       If the `RouterModule` module didn’t have forRoot() static method then each feature module would instantiate a new Router instance, which leads to broken application due to duplicate instances. After using forRoot() method, the root application module imports `RouterModule.forRoot(...)` and gets a Router, and all feature modules import `RouterModule.forChild(...)` which does not instantiate another Router.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -4082,11 +4968,19 @@ import 'web-animations-js';
       export class SharedModule {}
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 239.  ### Can I share services using modules?
 
       No, it is not recommended to share services by importing module. i.e Import modules when you want to use directives, pipes, and components only. The best approach to get a hold of shared services is through 'Angular dependency injection' because importing a module will result in a new service instance.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -4111,6 +5005,10 @@ import 'web-animations-js';
         }
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 241.  ### What is ngcc?
@@ -4125,6 +5023,10 @@ import 'web-animations-js';
 
       Whereas, Ivy compiler (ngtsc), which compiles Ivy-compatible code.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 242.  ### What classes should not be added to declarations?
@@ -4136,6 +5038,10 @@ import 'web-animations-js';
       4. Service classes.
       5. Non-Angular classes and objects, such as strings, numbers, functions, entity models, configurations, business logic, and helper classes.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 243.  ### What is NgZone?
@@ -4143,6 +5049,10 @@ import 'web-animations-js';
       Angular provides a service called NgZone which creates a zone named `angular` to automatically trigger change detection when the following conditions are satisfied.
       1. When a sync or async function is executed.
       2. When there is no microTask scheduled.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -4162,6 +5072,10 @@ import 'web-animations-js';
 platformBrowserDynamic().bootstrapModule(AppModule, {ngZone: 'noop'})
   .catch(err => console.error(err));
 `
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
          **[⬆ Back to Top](#table-of-contents)**
 
 245.  ### How do you create displayBlock components?
@@ -4173,6 +5087,10 @@ platformBrowserDynamic().bootstrapModule(AppModule, {ngZone: 'noop'})
       ```
 
       (OR) the option can be turned on by default in Angular.json with `schematics.@schematics/angular:component.displayBlock` key value as true.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -4255,6 +5173,10 @@ platformBrowserDynamic().bootstrapModule(AppModule, {ngZone: 'noop'})
 
       The current zone is retrieved through `Zone.current`.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 248.  ### What are the lifecycle hooks of a zone?
@@ -4288,6 +5210,10 @@ platformBrowserDynamic().bootstrapModule(AppModule, {ngZone: 'noop'})
              return delegate.invoke(target, callback, applyThis, applyArgs);
            }
          ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -4325,6 +5251,10 @@ platformBrowserDynamic().bootstrapModule(AppModule, {ngZone: 'noop'})
       }
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 250.  ### How do you change the settings of zonejs?
@@ -4350,11 +5280,19 @@ platformBrowserDynamic().bootstrapModule(AppModule, {ngZone: 'noop'})
       import 'zone.js/dist/zone';  // Included with Angular CLI.
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 251.  ### How do you trigger an animation?
 
       For new code, use CSS with Angular's `animate.enter` and `animate.leave` APIs rather than the deprecated `trigger()` animation API. These APIs apply CSS classes as elements are added to or removed from the DOM; see [Question 293](#how-do-you-animate-elements-entering-and-leaving-the-dom).
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -4364,6 +5302,10 @@ platformBrowserDynamic().bootstrapModule(AppModule, {ngZone: 'noop'})
       1. In the `@Injectable()` decorator for the service itself
       2. In the `@NgModule()` decorator for an NgModule
       3. In the `@Component()` decorator for a component
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -4440,6 +5382,10 @@ export class AppService {
       }
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 255.  ### What are the types of injector hierarchies?
@@ -4447,6 +5393,10 @@ export class AppService {
       There are two types of injector hierarchies in Angular
       1. **ModuleInjector hierarchy:** It configure on a module level using an @NgModule() or @Injectable() annotation.
       2. **ElementInjector hierarchy:** It created implicitly at each DOM element. Also it is empty by default unless you configure it in the providers property on @Directive() or @Component().
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -4510,11 +5460,19 @@ export class AppService {
       }
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 257.  ### What are dynamic forms?
 
       Dynamic forms is a pattern in which we build a form dynamically based on metadata that describes a business object model. You can create them based on reactive form API.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
       **[⬆ Back to Top](#table-of-contents)**
 
 258.  ### What are template driven forms?
@@ -4763,6 +5721,10 @@ export class AppService {
          </form>
          ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 261.  ### How do you update specific properties of a form model?
@@ -4788,6 +5750,10 @@ export class AppService {
 
       **Note:** Remember to update the properties against the exact model structure.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 262.  ### What is the purpose of FormBuilder?
@@ -4811,6 +5777,10 @@ export class AppService {
         constructor(private formBuilder: FormBuilder) { }
         }
       ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -4836,6 +5806,10 @@ export class AppService {
       <div class="form-group">// FormControls goes here</div>
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 264.  ### What are the state CSS classes provided by ngModel?
@@ -4847,6 +5821,10 @@ export class AppService {
       | Visited            | ng-touched | ng-untouched |
       | Value has changed  | ng-dirty   | ng-pristine  |
       | Value is valid     | ng-valid   | ng-invalid   |
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -4866,6 +5844,10 @@ export class AppService {
       ```
 
       Now, your form model resets the form back to its original pristine state.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -4902,6 +5884,10 @@ export class AppService {
 
       Whereas in template-driven forms, both `required` and `minlength` validators available as attributes.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 268.  ### How do you optimize the performance of async validators?
@@ -4916,6 +5902,10 @@ export class AppService {
          ```js
          name = new FormControl("", { updateOn: "blur" });
          ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -4946,6 +5936,10 @@ export class AppService {
       </ng-container>
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 270.  ### What is host property in css?
@@ -4962,6 +5956,10 @@ export class AppService {
         padding: 20px;
       }
       ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -4988,11 +5986,19 @@ export class AppService {
       console.log(this.router.url); //  /routename
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 272.  ### What is Component Test Harnesses?
 
       A component harness is a testing API around an Angular directive or component to make tests simpler by hiding implementation details from test suites. This can be shared between unit tests, integration tests, and end-to-end tests. The idea for component harnesses comes from the **PageObject** pattern commonly used for integration testing.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -5000,11 +6006,19 @@ export class AppService {
 
       During compile time, Angular CLI will download and inline the fonts that your application is using. This performance update speed up the first contentful paint(FCP) and this feature is enabled by default in apps built with version 11.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 274.  ### What is content projection?
 
       Content projection is a pattern in which you insert, or project, the content you want to use inside another component.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -5012,11 +6026,19 @@ export class AppService {
 
       The ng-content is used to insert the content dynamically inside the component that helps to increase component reusability.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 276.  ### What is standalone component?
 
       A standalone component, directive, or pipe can be imported directly without being declared in an NgModule. Standalone is the default for newly generated declarations in Angular 19 and later; set `standalone: false` when a declaration must belong to an NgModule. Existing NgModule applications remain supported.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -5029,6 +6051,10 @@ export class AppService {
       ```
 
       The CLI generates a standalone component and its associated files according to the workspace configuration. No `AppModule` update is required; import the new component in the `imports` array of the standalone component that uses it.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -5051,6 +6077,10 @@ export class AppService {
       ```
 
       To use it, add `StatusComponent` to the `imports` array of the consuming standalone component. NgModule-based applications can also import standalone declarations in an NgModule's `imports` array.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -5083,11 +6113,19 @@ export class AppService {
       export class AppModule {}
       ```
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 280.  ### What are Angular Signals?
 
       A signal is a wrapper around a value that can notify interested consumers when that value changes. Signals can contain any value, from simple primitives to complex data structures.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -5142,6 +6180,10 @@ export class AppService {
       <p>Count: {{ count() }}</p>
       <p>Double Count: {{ doubleCount() }}</p>
       ```
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -5243,11 +6285,15 @@ export class AppService {
 
       The explicit `track` expression lets Angular efficiently match items to DOM nodes. The older `*ngIf` and `*ngFor` directives remain supported, which is useful when working in existing templates.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 285.  ### What is zoneless change detection?
 
-      Zoneless change detection updates the application without Zone.js patching asynchronous browser APIs to trigger change detection. Angular 21 and later use zoneless change detection by default. Angular schedules updates through explicit notifications such as changing a signal read by a template, handling a template event, setting a component input, or calling `ChangeDetectorRef.markForCheck()`.
+      Zoneless change detection updates the application without Zone.js patching asynchronous browser APIs to trigger change detection. Angular releases should be checked because change-detection defaults can differ by version. In the project supported Angular version, zoneless updates should use signals, template events, input updates, or explicit change-detection notifications. Angular schedules updates through explicit notifications such as changing a signal read by a template, handling a template event, setting a component input, or calling `ChangeDetectorRef.markForCheck()`.
 
       It can reduce runtime overhead and improve debugging and compatibility with browser APIs. Applications migrating from older Angular versions should ensure updates use Angular's notification mechanisms rather than relying on arbitrary asynchronous callbacks. Zone-based change detection can still be explicitly configured when needed.
 
@@ -5270,6 +6316,10 @@ export class AppService {
 
       Read an input or query by calling it (for example, `title()`); emit an output with `saved.emit(value)`. These APIs integrate with signal-based reactivity and complement the established `@Input`, `@Output`, and query decorators, which remain available.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 287.  ### What is the @defer block?
@@ -5286,17 +6336,29 @@ export class AppService {
 
       Angular also supports triggers such as `on interaction` and `on idle`, along with `@loading` and `@error` blocks. Choose a trigger based on when the deferred content is actually needed.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 288.  ### What are the Resource APIs?
 
       `resource()` and `httpResource()` connect asynchronous data loading to signals. They expose request state, such as the current value and loading/error status, so templates and computed signals can react to changes. Use them when signal-oriented request state is a good fit; `HttpClient` and RxJS remain appropriate for observable-based flows, cancellation/composition needs, and APIs that emit multiple values.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 289.  ### What are Signal Forms?
 
-      Signal Forms are Angular's signal-based forms API. They represent form state using signals and provide validation and field-state APIs, enabling reactive form state to be read and updated through Angular's signal model. As of Angular 22, Signal Forms are stable. Reactive Forms remain supported and are a sound choice for existing applications; select a forms model based on the project's requirements and library compatibility.
+      Signal Forms are Angular's signal-based forms API. They represent form state using signals and provide validation and field-state APIs, enabling reactive form state to be read and updated through Angular's signal model. For Angular versions that support them, Signal Forms are a signal-based forms option. Reactive Forms remain supported and are a sound choice for existing applications; select a forms model based on the project's requirements and library compatibility.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -5304,17 +6366,29 @@ export class AppService {
 
       Angular supports client-side rendering (CSR), server-side rendering (SSR), prerendering/static site generation (SSG), and hybrid rendering that selects a mode per route. Use the `@angular/ssr` package to add SSR to an existing app (`ng add @angular/ssr`) or create one with SSR (`ng new --ssr`). Client hydration reuses server-rendered DOM instead of rebuilding it; incremental hydration can progressively hydrate deferred page sections. These approaches can improve initial rendering and SEO, but must be evaluated against runtime, deployment, and caching requirements.
 
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
+
       **[⬆ Back to Top](#table-of-contents)**
 
 291.  ### What is the current default change detection strategy?
 
-      In Angular 22, `OnPush` is the default change detection strategy for components; `ChangeDetectionStrategy.Default` is named `ChangeDetectionStrategy.Eager`. `OnPush` can skip checking subtrees when their inputs and other Angular notifications have not changed, helping performance. Angular notifications include template events, signal updates read by templates, input updates, and `markForCheck()`. Verify the behavior when upgrading older applications rather than assuming every change is detected through Zone.js.
+      In Angular versions that default components to `OnPush` change detection strategy for components; `ChangeDetectionStrategy.Default` is named `ChangeDetectionStrategy.Eager`. `OnPush` can skip checking subtrees when their inputs and other Angular notifications have not changed, helping performance. Angular notifications include template events, signal updates read by templates, input updates, and `markForCheck()`. Verify the behavior when upgrading older applications rather than assuming every change is detected through Zone.js.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
 292.  ### What should you know about Angular's current testing tools?
 
-      Angular's `TestBed` remains the core API for configuring dependency injection and testing components and services. For newly generated projects, Angular 21's CLI uses Vitest as the default unit-test runner. Existing projects may use other configured runners, and end-to-end testing is a separate concern; maintained tools such as Playwright or Cypress can exercise the app in a browser. Check the workspace's test target and builder instead of assuming Jasmine/Karma or Protractor.
+      Angular's `TestBed` remains the core API for configuring dependency injection and testing components and services. For newly generated projects, The workspace's Angular CLI and target configuration determine whether Vitest or another test runner is used. Existing projects may use other configured runners, and end-to-end testing is a separate concern; maintained tools such as Playwright or Cypress can exercise the app in a browser. Check the workspace's test target and builder instead of assuming Jasmine/Karma or Protractor.
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -5359,7 +6433,11 @@ export class AppService {
       }
       ```
 
-      Angular applies `fade-in` when the element is added, applies `fade-out` when it is removed, and removes the element after the leave animation completes. The legacy `@angular/animations` trigger API was deprecated in Angular 20.2, with removal intended in Angular 23. See the [Angular animation guide](https://angular.dev/guide/animations).
+      Angular applies `fade-in` when the element is added, applies `fade-out` when it is removed, and removes the element after the leave animation completes. The legacy `@angular/animations` trigger API is on a deprecation path; check the target Angular version and migration guide. See the [Angular animation guide](https://angular.dev/guide/animations).
+
+   **Interview tip**
+
+   Start with a precise one-sentence definition, then explain how the concept works and end with one practical use case or trade-off.
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -5410,12 +6488,13 @@ I first measure the user-visible problem and identify whether it is initial load
 
 - **Reduce initial download and work:** lazy-load feature routes with `loadComponent`/`loadChildren`, use `@defer` for non-critical below-the-fold UI, remove unused dependencies, and configure production builds and bundle budgets.
 - **Improve rendering:** use `@for` with a stable `track` key, avoid expensive template expressions and repeated subscriptions, use signals or `AsyncPipe` for reactive state, and consider `OnPush` where it is not already the default for the target Angular version.
-- **Improve runtime work:** profile change detection and long tasks; avoid unnecessary state updates; use virtual scrolling for very large lists; move CPU-heavy work to a Web Worker when appropriate. Angular 21+ is zoneless by default, so code should notify Angular through supported mechanisms such as signals, template events, and `markForCheck()`.
+- **Improve runtime work:** profile change detection and long tasks; avoid unnecessary state updates; use virtual scrolling for very large lists; move CPU-heavy work to a Web Worker when appropriate. Zoneless behavior should be used according to the target Angular version, so code should notify Angular through supported mechanisms such as signals, template events, and `markForCheck()`.
 - **Improve network and image loading:** use responsive/compressed images, reserve image dimensions, cache appropriately, and avoid serial API requests when independent requests can run in parallel.
 - **Choose rendering deliberately:** SSR/prerendering can improve initial content visibility and SEO; hydration avoids rebuilding server-rendered DOM. Measure server cost and route behavior as well.
 
 I then compare the same metrics before and after the change, test on representative mobile/network conditions, and keep the optimization only if it improves the measured user experience without harming correctness or maintainability.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 2. What are RxJS operators?
 
 Operators are functions that transform, filter, combine, or control an Observable stream. They are composed with `.pipe()` and generally return a new Observable without modifying the source.
@@ -5733,6 +6812,7 @@ share subscriber B: 2
 
 Use `shareReplay` with an intentional lifetime and cache policy; it can retain stale data or continue referencing canceled/unbounded streams. For Angular HTTP, `shareReplay` may be unnecessary when only one `AsyncPipe` subscriber or a short-lived request is involved.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 3. What are Observables?
 
 An Observable represents a potentially asynchronous stream that can emit zero or more values over time, then either complete or error. A consumer subscribes to receive `next`, `error`, and `complete` notifications; unsubscribing stops that consumer's interest and can cancel teardown-aware work.
@@ -5741,6 +6821,7 @@ Many Observables are lazy: creating one does not necessarily start the work unti
 
 Unlike a Promise, an Observable can emit multiple values and supports stream operators, cancellation, and composition. Use it when those stream semantics are useful; a Promise or a Signal may be simpler for a single result or synchronous state.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 4. What scenario-based Angular questions are commonly asked?
 
 Interviewers usually want to hear how you reason, not just which API you remember. Common scenarios include:
@@ -5758,6 +6839,7 @@ Interviewers usually want to hear how you reason, not just which API you remembe
 
 Use a repeatable structure: clarify expected behavior and constraints, reproduce the issue, form a testable hypothesis, explain the trade-offs, propose a small fix, and state how you would verify it. Use a real example when asked about something you have personally handled.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 5. How do you handle production incidents?
 
 I focus first on user impact and safe mitigation, then on root cause and prevention. A concise incident response is:
@@ -5770,6 +6852,7 @@ I focus first on user impact and safe mitigation, then on root cause and prevent
 
 An honest interview example can use: “In [incident], [users/system] were affected by [symptom]. I owned [your role], used [evidence] to identify [cause], mitigated by [action], and verified recovery with [metric]. We prevented recurrence by [test/alert/process change].” Replace each bracket with facts and be clear about what the team did versus what you personally did.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 6. What are HTTP interceptors?
 
 An HTTP interceptor is middleware around `HttpClient` requests and responses. It is useful for cross-cutting behavior such as attaching an authentication token, correlation IDs, logging/redaction, consistent error handling, or carefully designed retries. It should not become a hidden place for feature-specific business logic.
@@ -5799,6 +6882,7 @@ provideHttpClient(withInterceptors([authInterceptor]));
 
 Requests are immutable, so clone them to change headers or parameters. Interceptor order matters: requests pass through the chain in registration order and responses unwind through it. Do not log credentials or sensitive response bodies, do not treat a client-side guard/interceptor as server authorization, and do not swallow errors. Retry only errors that are plausibly transient and operations that are safe to retry; coordinate token refresh to avoid concurrent refresh storms. Class-based interceptors remain available for existing applications.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 7. Do you have experience with cloud?
 
 Answer accurately and name the services you have actually used. A useful answer covers the platform, what you personally did, and how you operated the application:
@@ -5807,6 +6891,7 @@ Answer accurately and name the services you have actually used. A useful answer 
 
 If your experience is limited to labs or development deployments, say so plainly and distinguish it from production ownership. Interviewers often value an accurate scope and a clear troubleshooting approach more than a broad list of cloud product names.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 8. If you get build issues in cloud, how do you handle them?
 
 I first identify which stage failed: dependency install, compile, test, artifact creation, image build, deployment, or runtime startup. I read the earliest meaningful error in the full logs and compare the cloud build environment with the last known-good build.
@@ -5818,6 +6903,7 @@ I first identify which stage failed: dependency install, compile, test, artifact
 - For containers, inspect the build stage, final image, output directory, ports, runtime command, and health check. For SSR, verify the expected server artifact and supported Node runtime; a static host needs SPA route fallback and correct asset paths.
 - Once fixed, rerun the same pipeline, verify the deployed artifact and health checks, and keep a rollback path. Record the root cause so the next build is reproducible.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 9. Can you tell me the differences between Angular versions?
 
 | Version             | What changed                                                                                                   | Why it is useful                                                                                    |
@@ -5832,13 +6918,14 @@ I first identify which stage failed: dependency install, compile, test, artifact
 | Angular 17          | Built-in template control flow and `@defer` entered preview.                                                   | Made templates clearer and enabled deferred loading of non-critical UI.                             |
 | Angular 19          | Standalone became the default for new declarations.                                                            | Reduced setup in newly generated applications while keeping NgModules supported.                    |
 | Angular 20          | Core Signals became stable; zoneless change detection became stable.                                           | Made signal-based reactivity and running without Zone.js production-ready.                          |
-| Angular 21 (LTS)    | Zoneless change detection became the default; Vitest became the default unit-test runner for new CLI projects. | Reduced Zone.js overhead and modernized the default testing setup.                                  |
-| Angular 22 (latest) | Signal Forms became stable; `OnPush` became the default change-detection strategy.                             | Offers signal-based form state and makes efficient change detection the default for new components. |
+| Angular LTS releases    | Zoneless change detection became the default; Vitest became the default unit-test runner for new CLI projects. | Reduced Zone.js overhead and modernized the default testing setup.                                  |
+| Angular current releases | Signal Forms became stable; `OnPush` became the default change-detection strategy.                             | Offers signal-based form state and makes efficient change detection the default for new components. |
 
-As of November 24, 2026, Angular 21 is the current LTS release and Angular 22 is the latest. For a real upgrade, check the [official support schedule](https://angular.dev/reference/releases#actively-supported-versions) and [version compatibility table](https://angular.dev/reference/versions), use `ng update` migrations, and test the application rather than assuming a feature is available in every version. The [full version comparison table](#what-are-the-differences-of-various-versions-of-angular) includes additional historical milestones.
+Check the official support schedule for the target release. For a real upgrade, check the [official support schedule](https://angular.dev/reference/releases#actively-supported-versions) and [version compatibility table](https://angular.dev/reference/versions), use `ng update` migrations, and test the application rather than assuming a feature is available in every version. The [full version comparison table](#what-are-the-differences-of-various-versions-of-angular) includes additional historical milestones.
 
 ### Interview 2
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 1. Tell me about yourself and the projects you have worked on.
 
 Keep the introduction relevant to the role and about one minute: current professional focus, strongest relevant experience, one or two projects, your contribution, and what you want to do next. For example:
@@ -5847,12 +6934,14 @@ Keep the introduction relevant to the role and about one minute: current profess
 
 Choose projects that match the job description. State what you personally designed, implemented, tested, operated, or improved; do not imply that you owned the whole project if you did not.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 2. What is lazy loading?
 
 Lazy loading downloads a feature's code only when it is needed, instead of including all feature code in the initial JavaScript bundle. It can reduce the initial download/parse cost, especially for applications with many routes, but it adds a request and loading delay when the user first visits that feature. It is therefore useful to lazy-load less frequently used or substantial features, while keeping the main entry route fast.
 
 Angular Router supports lazy standalone components with `loadComponent` and lazy child route configurations with `loadChildren`. Older NgModule applications can lazy-load a feature module with `loadChildren` as well. Lazy loading is a bundle strategy, not a way to make expensive code itself faster.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 3. How do you increase application performance, and how do you do it in code?
 
 I measure first, separate loading from runtime problems, then optimize the bottleneck. A code-level plan could include:
@@ -5874,6 +6963,7 @@ In templates, use `@for (item of items(); track item.id)` to preserve DOM identi
 
 I validate changes with bundle analysis, Chrome/Angular DevTools profiles, Lighthouse, and field metrics. I avoid applying every optimization everywhere: extra lazy boundaries, memoization, or state libraries can add complexity or delay if they do not address a measured problem.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 4. Where do you write the code for lazy loading?
 
 For routed features, define the loader in the route configuration, commonly `app.routes.ts` or a feature route file. `provideRouter(routes)` registers the route tree; the Router invokes the loader on navigation.
@@ -5899,6 +6989,7 @@ export const routes: Routes = [
 
 For a legacy NgModule feature, use `loadChildren` to dynamically import the feature module. Verify the generated bundle/chunk and the production server's routing and asset configuration; putting an `import()` in an unrelated file does not automatically make a route lazy.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 5. What are performance metrics?
 
 The Core Web Vitals measure user experience in the field:
@@ -5913,6 +7004,7 @@ Assess these at the 75th percentile, segmented by device where possible. Support
 
 I use Lighthouse and Chrome DevTools for repeatable lab diagnosis, Angular DevTools for component/change-detection profiling, and real-user monitoring for actual devices and networks. A `web-vitals` integration can report LCP, INP, and CLS with route/device context, while respecting the site's privacy policy. Do not send sensitive user data as metric labels.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 6. How do you review code written by someone else?
 
 I first clarify the intended behavior, constraints, and acceptance criteria, then trace the changed code through its callers and data flow. I review in this order:
@@ -5925,6 +7017,7 @@ I first clarify the intended behavior, constraints, and acceptance criteria, the
 
 I explain the impact and evidence, distinguish blockers from suggestions, and ask questions when intent is unclear. For example: “Could this request be cancelled when the search term changes? A slower earlier response could otherwise replace the latest results.” I avoid style-only criticism when a formatter or linter can resolve it.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 7. What are Docker images and containers, and how do you manage them?
 
 A Docker image is an immutable, layered package containing an application and its runtime/filesystem dependencies. A container is an isolated running instance created from an image; it adds runtime configuration and a writable layer. Images are built, tagged, scanned, and pushed to a registry; deployment systems pull an image and run one or more containers.
@@ -5947,6 +7040,7 @@ The output path and web-server fallback configuration must match the workspace; 
 
 ### Interview 3
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 1. You wrote that you worked on this project. What exactly did you do?
 
 Give a clear boundary between the team's work and your own. A useful response is:
@@ -5955,6 +7049,7 @@ Give a clear boundary between the team's work and your own. A useful response is
 
 Prepare one feature you can explain deeply: architecture, API/data flow, decisions, tests, deployment, production behavior, and what you would change now. Be ready to draw the component/service/API flow and distinguish your contribution from work done by teammates.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 2. What features did you work on in the healthcare project, and how long was it?
 
 Answer with the actual domain feature, your role, project duration, and your own involvement:
@@ -5963,18 +7058,21 @@ Answer with the actual domain feature, your role, project duration, and your own
 
 Healthcare systems may involve sensitive or regulated data. Explain the privacy, access-control, audit, and testing practices you actually followed, without exposing patient information or claiming regulatory compliance you cannot verify. If you cannot discuss a detail, describe the architecture or responsibility at a safe, non-identifying level.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 3. What are performance metrics, and how do you include them in your application?
 
 For user experience, I track LCP, INP, and CLS, using the recommended “good” thresholds of LCP <= 2.5 s, INP <= 200 ms, and CLS <= 0.1 at the 75th percentile. I also examine route-level TTFB/FCP, API latency, JavaScript errors, long tasks, and bundle size to diagnose causes.
 
 I start with lab measurements for repeatability, then add privacy-conscious real-user monitoring. A typical integration imports `onLCP`, `onINP`, and `onCLS` from `web-vitals`, sends a small allowlisted metric payload to the approved analytics endpoint, and tags it with a non-sensitive route/build identifier. I avoid collecting form contents, credentials, patient data, or other personal information. I define an owner and alert/threshold for each metric so telemetry leads to action, and compare before/after releases.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 4. How can you implement responsive web applications?
 
 Responsive design is primarily a CSS/layout responsibility, not an Angular-specific feature. I use a mobile-first layout with flexible CSS Grid/Flexbox, relative sizing, content-driven breakpoints, and responsive images (`srcset`/`sizes`). I test real content and zoom levels, make controls usable by keyboard and touch, avoid relying on hover alone, and ensure text reflows without horizontal scrolling at narrow widths.
 
 For Angular, components should adapt to available space without duplicating whole pages per device. Use CSS media/container queries for presentation; use a breakpoint observer only when behavior genuinely needs to change. Validate with browser device emulation and representative devices, and check accessibility, loading, and CLS as well as appearance.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 5. What was a major decision you made that benefited you and your team?
 
 Pick one real decision and explain it with context, alternatives, evidence, and outcome:
@@ -5983,20 +7081,24 @@ Pick one real decision and explain it with context, alternatives, evidence, and 
 
 The decision does not need to be a large rewrite. A measured incremental migration, a safer release strategy, or a shared testing convention can be a strong example if you can explain your reasoning and what you personally contributed.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 6. How did you enforce rules or guidelines in your team?
 
 I try to make standards clear and easy to follow rather than relying on subjective manual enforcement. We document conventions, automate formatting/linting/type checks/tests in local workflows and CI, use review checklists for high-risk areas, and agree on branch/release practices. I explain the reason behind a rule, give actionable review feedback, and make exceptions explicit and time-bounded when delivery requires them. I also revisit rules that create friction or no longer provide value.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 7. When you learn something new, how do you communicate it to your team?
 
 I first verify it against primary documentation and a small working example, then explain the problem it solves, when it is and is not appropriate, migration impact, and any risks. I share it in the team's preferred format—a short demo, written note, pairing session, or pull request—and invite questions. If it affects team conventions, I propose a trial and collect feedback instead of unilaterally changing standards.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 8. How do you do AI-assisted coding?
 
 I use AI as an assistant for bounded tasks such as exploring unfamiliar APIs, generating a first draft, suggesting tests, explaining errors, or reviewing a diff. I provide only context allowed by company policy, avoid sending secrets or restricted data, and keep the task scoped. I verify suggestions against current documentation and the repository's conventions, inspect every change, run tests/type checks/linting, and remain accountable for the final code. For risky or security-sensitive code, I require human review and do not treat a generated answer as evidence that the implementation is safe.
 
 If asked for a concrete example, describe a real task and compare the time/quality with your normal workflow; do not claim productivity or quality improvements you did not measure.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 9. You mentioned that you also do development. Why did you say “also”?
 
 Clarify that development is a primary responsibility if it is. For example:
@@ -6005,6 +7107,7 @@ Clarify that development is a primary responsibility if it is. For example:
 
 Adjust the additional responsibilities to your real role. Avoid making development sound incidental if the position you are interviewing for is a developer role.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 10. Do you understand how LLMs work, including skills and similar concepts?
 
 A concise technical answer can explain the layers without overstating expertise:
@@ -6013,6 +7116,7 @@ A concise technical answer can explain the layers without overstating expertise:
 
 For agent skills, explain the specific system you used: a skill is typically a reusable package of task instructions and related resources that an agent can load for a bounded workflow; tools provide callable capabilities, and permissions determine what the agent may actually do. Discuss evaluation, least privilege, human approval for consequential actions, and how you test failure cases. If your certification and small agents are real, mention their exact scope and one example; a certificate alone is not proof of deep production experience.
 
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
 #### 11. A block moves down before initial loading finishes. What is this, and how do you fix it?
 
 This is **Cumulative Layout Shift (CLS)**: unexpected movement of visible content during page loading or interaction. I would reproduce it and identify the element that shifted using Chrome DevTools' Performance/Layout Shift track or a field CLS report, then find what changed its geometry.
@@ -6029,3 +7133,5 @@ Common fixes include:
 For example, set an ad slot's `min-height` based on its expected size and provide image dimensions in markup. The good CLS target is <= 0.1 at the 75th percentile. A visually moving block can be caused by content growth, fonts, or hydration, so I would measure the source rather than applying a blanket fixed height to the whole page.
 
 **[⬆ Back to Top](#table-of-contents)**
+
+**Interview tip:** Answer from the role's perspective: connect the concept or experience to evidence, trade-offs, and a result you can personally substantiate.
