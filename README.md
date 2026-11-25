@@ -5417,16 +5417,156 @@ I then compare the same metrics before and after the change, test on representat
 
 Operators are functions that transform, filter, combine, or control an Observable stream. They are composed with `.pipe()` and generally return a new Observable without modifying the source.
 
-| Category          | Examples                                                              | Typical use                                                                                                  |
-| ----------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| Create            | `of`, `from`, `interval`, `fromEvent`                                 | Create streams from values, arrays, timers, or events.                                                       |
-| Transform         | `map`, `scan`, `switchMap`, `mergeMap`, `concatMap`, `exhaustMap`     | Convert values or map each value to another Observable.                                                      |
-| Filter/control    | `filter`, `take`, `debounceTime`, `distinctUntilChanged`, `takeUntil` | Keep relevant values, debounce input, or limit a stream's lifetime.                                          |
-| Combine           | `combineLatest`, `forkJoin`, `merge`, `concat`, `withLatestFrom`      | Coordinate multiple streams according to their emission/completion behavior.                                 |
-| Error/retry       | `catchError`, `retry`, `timeout`                                      | Recover, retry, or bound an asynchronous operation.                                                          |
-| Side effect/share | `tap`, `share`, `shareReplay`                                         | Observe a stream or share work; sharing and replay should be used with an intentional cache/lifetime policy. |
+Operators are categorized as creation, transformation, filtering, combination, error-handling, and utility/share operators.
 
-For example, `debounceTime(250)`, `distinctUntilChanged()`, and `switchMap(...)` are common for search: wait until typing pauses, skip duplicate terms, then start the latest request. `switchMap` unsubscribes from the previous inner stream; with Angular `HttpClient`, that normally cancels the client request. Choose flattening deliberately: `concatMap` queues work, `mergeMap` permits concurrent work, and `exhaustMap` ignores new source values while one inner operation is active.
+##### Creation operators
+
+| Operator | Example | Best application |
+| --- | --- | --- |
+| `of` | `of(1, 2, 3).subscribe(console.log)` emits `1`, `2`, `3`, then completes. | Testing, fallback values, or wrapping known values in an Observable. |
+| `from` | `from([1, 2, 3]).pipe(map(value => value * 2)).subscribe(...)` emits `2`, `4`, `6`. | Converting an array, Promise, or iterable into a stream. |
+| `interval` | `interval(1000).pipe(take(3)).subscribe(...)` emits `0`, `1`, `2` once per second. | Polling or periodic UI updates. Always stop or limit the stream. |
+| `fromEvent` | `fromEvent(button, 'click').pipe(takeUntilDestroyed()).subscribe(...)` emits each click. | Converting browser events or DOM events into Observables. |
+
+```typescript
+import { from, interval, of } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+
+of(10, 20).subscribe(value => console.log(value));
+from([1, 2, 3]).pipe(map(value => value * 2)).subscribe(...);
+interval(1000).pipe(take(3)).subscribe(value => console.log(value));
+```
+
+##### Transformation operators
+
+| Operator | Example | Best application |
+| --- | --- | --- |
+| `map` | `from([1, 2, 3]).pipe(map(value => value * 10))` emits `10`, `20`, `30`. | Transforming one value into another synchronously. |
+| `scan` | `of(1, 2, 3).pipe(scan((total, value) => total + value, 0))` emits `1`, `3`, `6`. | Accumulated state, counters, and running totals. |
+| `switchMap` | `searchInput$.pipe(debounceTime(250), distinctUntilChanged(), switchMap(term => http.get(...)))` | Search or autocomplete, where only the latest request/result matters. It cancels the previous inner Observable. |
+| `mergeMap` | `saveIds$.pipe(mergeMap(id => http.post(...)))` | Independent operations that may run concurrently. |
+| `concatMap` | `jobs$.pipe(concatMap(job => http.post(...)))` | Work that must execute in order, such as serial uploads or mutations. |
+| `exhaustMap` | `submitClicks$.pipe(exhaustMap(() => http.post(...)))` | Preventing duplicate submissions while the current operation is active. |
+
+```typescript
+import { from, mergeMap, switchMap } from 'rxjs';
+import { map, scan, concatMap, exhaustMap } from 'rxjs/operators';
+
+from([1, 2, 3]).pipe(map(value => value * 10)).subscribe(...);
+
+from([1, 2, 3])
+  .pipe(scan((total, value) => total + value, 0))
+  .subscribe(total => console.log(total));
+
+searchInput$
+  .pipe(
+    debounceTime(250),
+    distinctUntilChanged(),
+    switchMap(term => http.get(`/api/search?q=${term}`))
+  )
+  .subscribe(...);
+```
+
+For HTTP calls, `switchMap` is best for replacing an older request with the newest request, `concatMap` for preserving request order, `mergeMap` for intentional concurrent work, and `exhaustMap` for ignoring source emissions until the active operation completes.
+
+##### Filtering and control operators
+
+| Operator | Example | Best application |
+| --- | --- | --- |
+| `filter` | `values$.pipe(filter(value => value > 10))` | Passing only values that satisfy a condition. |
+| `take` | `interval(1000).pipe(take(5))` | Completing after a fixed number of emissions. |
+| `debounceTime` | `searchInput$.pipe(debounceTime(300))` | Waiting until the user pauses typing or triggering an action after inactivity. |
+| `distinctUntilChanged` | `searchInput$.pipe(distinctUntilChanged())` | Avoiding duplicate values that follow each other, such as repeated search terms. |
+| `takeUntil` | `request$.pipe(takeUntil(destroy$))` | Canceling or completing a stream when another Observable emits or completes; often used for component cleanup. |
+
+```typescript
+import { interval, Subject } from 'rxjs';
+import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
+
+values$.pipe(filter(value => value > 10)).subscribe(...);
+interval(1000).pipe(take(5)).subscribe(...);
+searchInput$.pipe(debounceTime(300)).subscribe(...);
+
+request$.pipe(takeUntil(destroy$)).subscribe(...);
+```
+
+In modern Angular code, prefer `takeUntilDestroyed()` for component or injection-context cleanup where it fits; `takeUntil` is useful for custom cancellation events or streams outside the Angular lifecycle.
+
+##### Combination operators
+
+| Operator | Example | Best application |
+| --- | --- | --- |
+| `combineLatest` | `combineLatest([status$, selectedUser$])` | Using the latest value from each stream whenever any stream changes. |
+| `forkJoin` | `forkJoin({ user: http.get('/user'), orders: http.get('/orders') })` | Waiting for several independent HTTP requests to complete, then returning the final values together. |
+| `merge` | `merge(save$, delete$, refresh$)` | Processing emissions from multiple streams as one stream. |
+| `concat` | `concat(firstRequest$, secondRequest$)` | Starting streams sequentially and waiting for each to complete before starting the next. |
+| `withLatestFrom` | `submit$.pipe(withLatestFrom(currentUser$), map(([submit, user]) => ({ submit, user })))` | Adding the latest value from a secondary stream to an event stream. It does not subscribe to that secondary stream as a trigger. |
+
+```typescript
+import { combineLatest, forkJoin, merge } from 'rxjs';
+import { map, withLatestFrom } from 'rxjs/operators';
+
+combineLatest([status$, selectedUser$]).subscribe(...);
+
+forkJoin({
+  user: http.get('/api/user'),
+  orders: http.get('/api/orders'),
+}).subscribe(({ user, orders }) => console.log(user, orders));
+
+submit$
+  .pipe(
+    withLatestFrom(currentUser$),
+    map(([submit, user]) => ({ submit, user }))
+  )
+  .subscribe(...);
+```
+
+Use `forkJoin` only with sources that complete; use `combineLatest` when the latest state of several streams is needed. Do not use `forkJoin` for infinite streams or a stream that may never complete.
+
+##### Error-handling operators
+
+| Operator | Example | Best application |
+| --- | --- | --- |
+| `catchError` | `http.get('/api/users').pipe(catchError(error => of({ fallback: true, error })))` | Converting an error into a fallback value or redirecting to a recovery Observable. |
+| `retry` | `http.get('/api/status').pipe(retry({ count: 2, delay: 1000 }))` | Retrying a safe, transient operation a bounded number of times. |
+| `timeout` | `http.get('/api/report').pipe(timeout(5000))` | Failing an operation after a maximum wait time. |
+
+```typescript
+import { catchError, retry, timeout, of } from 'rxjs';
+
+http.get('/api/users').pipe(
+  timeout(5000),
+  retry({ count: 2, delay: 1000 }),
+  catchError(error => {
+    console.error(error);
+    return of([]);
+  })
+).subscribe(...);
+```
+
+Place `retry` carefully: retry mutations only when idempotency and the API contract make duplicate execution safe. `catchError` should decide between a fallback, a redirect, or rethrowing, and should not silently hide unexpected errors.
+
+##### Side-effect and sharing operators
+
+| Operator | Example | Best application |
+| --- | --- | --- |
+| `tap` | `users$.pipe(tap(users => console.log(users)))` | Debugging, logging, or a side effect that does not change emitted values. |
+| `share` | `const shared$ = request$.pipe(share())` | Sharing one execution among subscribers without replaying an earlier value. |
+| `shareReplay` | `const profile$ = http.get('/api/profile').pipe(shareReplay({ bufferSize: 1, refCount: true }))` | Caching one or more completed emissions for subscribers that subscribe later; useful for finite HTTP data. |
+
+```typescript
+import { share, shareReplay, tap } from 'rxjs';
+
+const request$ = http.get('/api/profile').pipe(
+  tap(profile => console.log(profile)),
+  shareReplay({ bufferSize: 1, refCount: true })
+);
+
+request$.subscribe(...);
+request$.subscribe(...);
+```
+
+Use `shareReplay` with an intentional lifetime and cache policy; it can retain stale data or continue referencing canceled/unbounded streams. For Angular HTTP, `shareReplay` may be unnecessary when only one `AsyncPipe` subscriber or a short-lived request is involved.
 
 #### 3. What are Observables?
 
