@@ -5424,17 +5424,36 @@ Operators are categorized as creation, transformation, filtering, combination, e
 | Operator | Example | Best application |
 | --- | --- | --- |
 | `of` | `of(1, 2, 3).subscribe(console.log)` emits `1`, `2`, `3`, then completes. | Testing, fallback values, or wrapping known values in an Observable. |
-| `from` | `from([1, 2, 3]).pipe(map(value => value * 2)).subscribe(...)` emits `2`, `4`, `6`. | Converting an array, Promise, or iterable into a stream. |
-| `interval` | `interval(1000).pipe(take(3)).subscribe(...)` emits `0`, `1`, `2` once per second. | Polling or periodic UI updates. Always stop or limit the stream. |
-| `fromEvent` | `fromEvent(button, 'click').pipe(takeUntilDestroyed()).subscribe(...)` emits each click. | Converting browser events or DOM events into Observables. |
+| `from` | `from([1, 2, 3]).pipe(map(value => value * 2)).subscribe(value => console.log(value))` prints `2`, `4`, `6`. | Converting an array, Promise, or iterable into a stream. |
+| `interval` | `interval(1000).pipe(take(3)).subscribe(value => console.log(value))` prints `0`, `1`, `2` once per second. | Polling or periodic UI updates. Always stop or limit the stream. |
+| `fromEvent` | `fromEvent(button, 'click').subscribe(() => console.log('button clicked'))` prints `button clicked` for each click. | Converting browser events or DOM events into Observables. |
 
 ```typescript
 import { from, interval, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
-of(10, 20).subscribe(value => console.log(value));
-from([1, 2, 3]).pipe(map(value => value * 2)).subscribe(...);
-interval(1000).pipe(take(3)).subscribe(value => console.log(value));
+of(10, 20).subscribe({
+  next: value => console.log('of:', value),
+  complete: () => console.log('of complete'),
+});
+// Output: of: 10
+//         of: 20
+//         of complete
+
+from([1, 2, 3])
+  .pipe(map(value => value * 2))
+  .subscribe(value => console.log('from:', value));
+// Output: from: 2
+//         from: 4
+//         from: 6
+
+interval(1000)
+  .pipe(take(3))
+  .subscribe(value => console.log('interval:', value));
+// After 1-second intervals:
+// Output: interval: 0
+//         interval: 1
+//         interval: 2
 ```
 
 ##### Transformation operators
@@ -5449,23 +5468,45 @@ interval(1000).pipe(take(3)).subscribe(value => console.log(value));
 | `exhaustMap` | `submitClicks$.pipe(exhaustMap(() => http.post(...)))` | Preventing duplicate submissions while the current operation is active. |
 
 ```typescript
-import { from, mergeMap, switchMap } from 'rxjs';
+import { from, of } from 'rxjs';
 import { map, scan, concatMap, exhaustMap } from 'rxjs/operators';
 
-from([1, 2, 3]).pipe(map(value => value * 10)).subscribe(...);
+from([1, 2, 3])
+  .pipe(map(value => value * 10))
+  .subscribe(value => console.log('map:', value));
+// Output: map: 10
+//         map: 20
+//         map: 30
 
 from([1, 2, 3])
   .pipe(scan((total, value) => total + value, 0))
   .subscribe(total => console.log(total));
+// Output: 1
+//         3
+//         6
 
-searchInput$
-  .pipe(
-    debounceTime(250),
-    distinctUntilChanged(),
-    switchMap(term => http.get(`/api/search?q=${term}`))
-  )
-  .subscribe(...);
+of('Angular', 'RxJS')
+  .pipe(switchMap(term => of(`${term} result`)))
+  .subscribe(value => console.log('switchMap:', value));
+// Output: switchMap: Angular result
+//         switchMap: RxJS result
+
+of(1, 2, 3)
+  .pipe(concatMap(value => of(`Saved ${value}`)))
+  .subscribe(value => console.log('concatMap:', value));
+// Output: Saved 1
+//         Saved 2
+//         Saved 3
+
+of(1, 2, 3)
+  .pipe(exhaustMap(value => of(`Submitted ${value}`)))
+  .subscribe(value => console.log('exhaustMap:', value));
+// Output: Submitted 1
+//         Submitted 2
+//         Submitted 3
 ```
+
+For synchronous examples, `concatMap` and `exhaustMap` emit every value because no inner Observable is still active. For real HTTP operations, `exhaustMap` ignores new source emissions while an inner request is active.
 
 For HTTP calls, `switchMap` is best for replacing an older request with the newest request, `concatMap` for preserving request order, `mergeMap` for intentional concurrent work, and `exhaustMap` for ignoring source emissions until the active operation completes.
 
@@ -5480,14 +5521,45 @@ For HTTP calls, `switchMap` is best for replacing an older request with the newe
 | `takeUntil` | `request$.pipe(takeUntil(destroy$))` | Canceling or completing a stream when another Observable emits or completes; often used for component cleanup. |
 
 ```typescript
-import { interval, Subject } from 'rxjs';
-import { debounceTime, filter, take, takeUntil } from 'rxjs/operators';
+import { from, interval, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
 
-values$.pipe(filter(value => value > 10)).subscribe(...);
-interval(1000).pipe(take(5)).subscribe(...);
-searchInput$.pipe(debounceTime(300)).subscribe(...);
+from([5, 12, 8, 20])
+  .pipe(filter(value => value > 10))
+  .subscribe(value => console.log('filter:', value));
+// Output: filter: 12
+//         filter: 20
 
-request$.pipe(takeUntil(destroy$)).subscribe(...);
+interval(1000)
+  .pipe(take(3))
+  .subscribe(value => console.log('take:', value));
+// Output: take: 0
+//         take: 1
+//         take: 2
+
+const search$ = new Subject<string>();
+search$
+  .pipe(debounceTime(300), distinctUntilChanged())
+  .subscribe(value => console.log('search:', value));
+
+search$.next('an');
+search$.next('ang');
+search$.next('angular');
+// After 300 ms with no new value:
+// Output: search: angular
+
+const destroy$ = new Subject<void>();
+interval(500)
+  .pipe(takeUntil(destroy$))
+  .subscribe(value => console.log('takeUntil:', value));
+
+setTimeout(() => {
+  destroy$.next();
+  destroy$.complete();
+}, 1300);
+// Output: takeUntil: 0
+//         takeUntil: 1
+//         takeUntil: 2
 ```
 
 In modern Angular code, prefer `takeUntilDestroyed()` for component or injection-context cleanup where it fits; `takeUntil` is useful for custom cancellation events or streams outside the Angular lifecycle.
@@ -5503,22 +5575,42 @@ In modern Angular code, prefer `takeUntilDestroyed()` for component or injection
 | `withLatestFrom` | `submit$.pipe(withLatestFrom(currentUser$), map(([submit, user]) => ({ submit, user })))` | Adding the latest value from a secondary stream to an event stream. It does not subscribe to that secondary stream as a trigger. |
 
 ```typescript
-import { combineLatest, forkJoin, merge } from 'rxjs';
+import { combineLatest, forkJoin, merge, of, Subject } from 'rxjs';
 import { map, withLatestFrom } from 'rxjs/operators';
 
-combineLatest([status$, selectedUser$]).subscribe(...);
+const status$ = new Subject<string>();
+const selectedUser$ = new Subject<string>();
+
+combineLatest([status$, selectedUser$])
+  .subscribe(([status, user]) => console.log('combineLatest:', status, user));
+
+status$.next('loading');
+selectedUser$.next('Harsha');
+status$.next('ready');
+// Output: combineLatest: loading Harsha
+//         combineLatest: ready Harsha
 
 forkJoin({
-  user: http.get('/api/user'),
-  orders: http.get('/api/orders'),
-}).subscribe(({ user, orders }) => console.log(user, orders));
+  user: of({ id: 1, name: 'Harsha' }),
+  orders: of(['Order A', 'Order B']),
+}).subscribe(result => console.log('forkJoin:', result));
+// Output: forkJoin: {
+//   user: { id: 1, name: 'Harsha' },
+//   orders: ['Order A', 'Order B']
+// }
+
+const submit$ = new Subject<string>();
+const currentUser$ = of('Harsha');
 
 submit$
   .pipe(
     withLatestFrom(currentUser$),
     map(([submit, user]) => ({ submit, user }))
   )
-  .subscribe(...);
+  .subscribe(result => console.log('withLatestFrom:', result));
+
+submit$.next('Save');
+// Output: withLatestFrom: { submit: 'Save', user: 'Harsha' }
 ```
 
 Use `forkJoin` only with sources that complete; use `combineLatest` when the latest state of several streams is needed. Do not use `forkJoin` for infinite streams or a stream that may never complete.
@@ -5532,16 +5624,29 @@ Use `forkJoin` only with sources that complete; use `combineLatest` when the lat
 | `timeout` | `http.get('/api/report').pipe(timeout(5000))` | Failing an operation after a maximum wait time. |
 
 ```typescript
-import { catchError, retry, timeout, of } from 'rxjs';
+import { catchError, of, throwError, timeout, timer } from 'rxjs';
+import { retry } from 'rxjs/operators';
 
-http.get('/api/users').pipe(
-  timeout(5000),
-  retry({ count: 2, delay: 1000 }),
-  catchError(error => {
-    console.error(error);
-    return of([]);
-  })
-).subscribe(...);
+throwError(() => new Error('Server unavailable'))
+  .pipe(
+    timeout(5000),
+    retry({ count: 2, delay: 1000 }),
+    catchError(error => {
+      console.error('catchError:', error.message);
+      return of([]);
+    })
+  )
+  .subscribe(users => console.log('fallback:', users));
+// Retry: 2 attempts, each separated by 1000 ms
+// Output: catchError: Server unavailable
+//         fallback: []
+
+timer(200)
+  .pipe(timeout(100))
+  .subscribe({
+    error: error => console.log('timeout:', error.message),
+  });
+// Output: timeout: Timeout has occurred
 ```
 
 Place `retry` carefully: retry mutations only when idempotency and the API contract make duplicate execution safe. `catchError` should decide between a fallback, a redirect, or rethrowing, and should not silently hide unexpected errors.
@@ -5555,15 +5660,36 @@ Place `retry` carefully: retry mutations only when idempotency and the API contr
 | `shareReplay` | `const profile$ = http.get('/api/profile').pipe(shareReplay({ bufferSize: 1, refCount: true }))` | Caching one or more completed emissions for subscribers that subscribe later; useful for finite HTTP data. |
 
 ```typescript
-import { share, shareReplay, tap } from 'rxjs';
+import { of, Subject, share, shareReplay, tap } from 'rxjs';
 
-const request$ = http.get('/api/profile').pipe(
-  tap(profile => console.log(profile)),
+const sharedRequest$ = of({ name: 'Harsha' }).pipe(
+  tap(profile => console.log('tap:', profile)),
   shareReplay({ bufferSize: 1, refCount: true })
 );
 
-request$.subscribe(...);
-request$.subscribe(...);
+sharedRequest$.subscribe(profile => console.log('subscriber 1:', profile));
+sharedRequest$.subscribe(profile => console.log('subscriber 2:', profile));
+// Output: tap: { name: 'Harsha' }
+//         subscriber 1: { name: 'Harsha' }
+//         subscriber 2: { name: 'Harsha' }
+
+const secondSubscriber$ = sharedRequest$;
+secondSubscriber$.subscribe(profile => console.log('late subscriber:', profile));
+// Output: late subscriber: { name: 'Harsha' }
+
+const event$ = new Subject<number>();
+const sharedEvent$ = event$.pipe(share());
+
+sharedEvent$.subscribe(value => console.log('share subscriber A:', value));
+sharedEvent$.subscribe(value => console.log('share subscriber B:', value));
+
+event$.next(1);
+event$.next(2);
+// Output: share subscriber A: 1
+//         share subscriber B: 1
+//         share subscriber A: 2
+//         share subscriber B: 2
+// `share()` does not replay old emissions to a subscriber that joins later.
 ```
 
 Use `shareReplay` with an intentional lifetime and cache policy; it can retain stale data or continue referencing canceled/unbounded streams. For Angular HTTP, `shareReplay` may be unnecessary when only one `AsyncPipe` subscriber or a short-lived request is involved.
