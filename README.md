@@ -627,7 +627,8 @@
         ```
 
     4.  **Parameter decorators** Used for parameters inside class constructors, e.g. @Inject, @Optional
-        ```typescript
+
+        ````typescript
         import { Component, Inject } from '@angular/core';
         import { MyService } from './my-service';
 
@@ -659,6 +660,7 @@
               ```
 
         **[⬆ Back to Top](#table-of-contents)**
+        ````
 
 14. ### What is angular CLI?
 
@@ -1115,15 +1117,15 @@
     3. Create a component for subscribing service:
        Let's create a component called UserProfileComponent(`userprofile.component.ts`), which injects `UserProfileService` and invokes the service method:
        `javascript
-    fetchUserProfile() {
-      this.userProfileService.getUserProfile()
-        .subscribe((data: User) => this.user = {
-            id: data['userId'],
-            name: data['firstName'],
-            city:  data['city']
-        });
-    }
-    `
+fetchUserProfile() {
+  this.userProfileService.getUserProfile()
+    .subscribe((data: User) => this.user = {
+        id: data['userId'],
+        name: data['firstName'],
+        city:  data['city']
+    });
+}
+`
        Since the above service method returns an Observable which needs to be subscribed in the component.
 
 **[⬆ Back to Top](#table-of-contents)**
@@ -2609,9 +2611,9 @@
         ```
      2. **Use in a new application:** Install the package and create the application with collection option
         `javascript
-    npm install -g @angular/bazel
-    ng new --collection=@angular/bazel
-    `
+npm install -g @angular/bazel
+ng new --collection=@angular/bazel
+`
         When you use ng build and ng serve commands, Bazel is used behind the scenes and outputs the results in dist/bin folder.
 
 **[⬆ Back to Top](#table-of-contents)**
@@ -2883,12 +2885,12 @@
       2. **Optional polyfills:** You need to install its npm package and then create import statement in 'src/polyfills.ts' file.
          For example, first you need to install below npm package for adding web animations (optional) polyfill.
          `bash
-     npm install --save web-animations-js
-    `
+ npm install --save web-animations-js
+`
          and create import statement in polyfill file.
          `javascript
-    import 'web-animations-js';
-    `
+import 'web-animations-js';
+`
 
       **[⬆ Back to Top](#table-of-contents)**
 
@@ -4157,9 +4159,9 @@
          ```
       2. Bootstrap Angular with noop zone in src/main.ts.
          `js
-    platformBrowserDynamic().bootstrapModule(AppModule, {ngZone: 'noop'})
-      .catch(err => console.error(err));
-    `
+platformBrowserDynamic().bootstrapModule(AppModule, {ngZone: 'noop'})
+  .catch(err => console.error(err));
+`
          **[⬆ Back to Top](#table-of-contents)**
 
 245.  ### How do you create displayBlock components?
@@ -4384,40 +4386,41 @@
           return (constructor: Function) => console.log(constructor);
           }
 
-              @SomeDummyDecorator()
-              export class AppService {
-                constructor(http: HttpService) {
-                  console.log(http);
-                }
-              }
-              ```
+                    @SomeDummyDecorator()
+                    export class AppService {
+                      constructor(http: HttpService) {
+                        console.log(http);
+                      }
+                    }
+                    ```
 
-          and the generated javascript code of above service has meta information about HttpService,
-          `js
-    var AppService = (function () {
-        function AppService(http) {
-            console.log(http);
-        }
-        AppService = __decorate([
-            core_1.Injectable(),
-            __metadata('design:paramtypes', [http_service_1.HttpService])
-        ], AppService);
-        return AppService;
-    }());
-    exports.AppService = AppService;
-    `
+                and the generated javascript code of above service has meta information about HttpService,
+                `js
+
+          var AppService = (function () {
+          function AppService(http) {
+          console.log(http);
+          }
+          AppService = **decorate([
+          core_1.Injectable(),
+          **metadata('design:paramtypes', [http_service_1.HttpService])
+          ], AppService);
+          return AppService;
+          }());
+          exports.AppService = AppService;
+          `
 
       3.  The below AppService with @injectable decorator and httpService can be injected in AppComponent without any problems. This is because meta information is generated with Injectable decorator.
           `js
-    @Injectable({
-      providedIn: 'root',
-    })
-    export class AppService {
-      constructor(http: HttpService) {
-        console.log(http);
-      }
-    }
-    `
+@Injectable({
+  providedIn: 'root',
+})
+export class AppService {
+  constructor(http: HttpService) {
+    console.log(http);
+  }
+}
+`
           **[⬆ Back to Top](#table-of-contents)**
 
 254.  ### What is an optional dependency?
@@ -4481,11 +4484,11 @@
 
       3. Register the FormControl in the template.
          `js
-    <label>
-      User name:
-      <input type="text" [formControl]="userName">
-    </label>
-    `
+<label>
+  User name:
+  <input type="text" [formControl]="userName">
+</label>
+`
          Finally, the component with reactive form control appears as below,
 
       ```js
@@ -4564,12 +4567,12 @@
          </div>
          ```
       5. Let's submit the form with ngSubmit directive and add type="submit" button at the bottom of the form to trigger form submit.
-         `html
-    <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
-    // Form goes here
-    <button type="submit" class="btn btn-success" [disabled]="!registerForm.form.valid">Submit</button>
-    `
-         Finally, the completed template-driven registration form will be appeared as follow.
+      `html
+      <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+      // Form goes here
+      <button type="submit" class="btn btn-success" [disabled]="!registerForm.form.valid">Submit</button>
+      `
+           Finally, the completed template-driven registration form will be appeared as follow.
 
       ```html
       <div class="container">
@@ -5421,89 +5424,98 @@ Operators are categorized as creation, transformation, filtering, combination, e
 
 ##### Creation operators
 
-| Operator | Example | Best application |
-| --- | --- | --- |
-| `of` | `of(1, 2, 3).subscribe(console.log)` emits `1`, `2`, `3`, then completes. | Testing, fallback values, or wrapping known values in an Observable. |
-| `from` | `from([1, 2, 3]).pipe(map(value => value * 2)).subscribe(value => console.log(value))` prints `2`, `4`, `6`. | Converting an array, Promise, or iterable into a stream. |
-| `interval` | `interval(1000).pipe(take(3)).subscribe(value => console.log(value))` prints `0`, `1`, `2` once per second. | Polling or periodic UI updates. Always stop or limit the stream. |
-| `fromEvent` | `fromEvent(button, 'click').subscribe(() => console.log('button clicked'))` prints `button clicked` for each click. | Converting browser events or DOM events into Observables. |
+| Operator    | Example                                                                                                             | Best application                                                     |
+| ----------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `of`        | `of(1, 2, 3).subscribe(console.log)` emits `1`, `2`, `3`, then completes.                                           | Testing, fallback values, or wrapping known values in an Observable. |
+| `from`      | `from([1, 2, 3]).pipe(map(value => value * 2)).subscribe(value => console.log(value))` prints `2`, `4`, `6`.        | Converting an array, Promise, or iterable into a stream.             |
+| `interval`  | `interval(1000).pipe(take(3)).subscribe(value => console.log(value))` prints `0`, `1`, `2` once per second.         | Polling or periodic UI updates. Always stop or limit the stream.     |
+| `fromEvent` | `fromEvent(button, 'click').subscribe(() => console.log('button clicked'))` prints `button clicked` for each click. | Converting browser events or DOM events into Observables.            |
 
 ```typescript
-import { from, interval, of } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { from, interval, of } from "rxjs";
+import { map, take } from "rxjs/operators";
 
 of(10, 20).subscribe({
-  next: value => console.log('of:', value),
-  complete: () => console.log('of complete'),
+  next: (value) => console.log("of:", value),
+  complete: () => console.log("of complete"),
 });
-// Output: of: 10
-//         of: 20
-//         of complete
 
 from([1, 2, 3])
-  .pipe(map(value => value * 2))
-  .subscribe(value => console.log('from:', value));
-// Output: from: 2
-//         from: 4
-//         from: 6
+  .pipe(map((value) => value * 2))
+  .subscribe((value) => console.log("from:", value));
 
 interval(1000)
   .pipe(take(3))
-  .subscribe(value => console.log('interval:', value));
-// After 1-second intervals:
-// Output: interval: 0
-//         interval: 1
-//         interval: 2
+  .subscribe((value) => console.log("interval:", value));
+```
+
+**Expected output:**
+
+```text
+of: 10
+of: 20
+of complete
+from: 2
+from: 4
+from: 6
+interval: 0
+interval: 1
+interval: 2
 ```
 
 ##### Transformation operators
 
-| Operator | Example | Best application |
-| --- | --- | --- |
-| `map` | `from([1, 2, 3]).pipe(map(value => value * 10))` emits `10`, `20`, `30`. | Transforming one value into another synchronously. |
-| `scan` | `of(1, 2, 3).pipe(scan((total, value) => total + value, 0))` emits `1`, `3`, `6`. | Accumulated state, counters, and running totals. |
-| `switchMap` | `searchInput$.pipe(debounceTime(250), distinctUntilChanged(), switchMap(term => http.get(...)))` | Search or autocomplete, where only the latest request/result matters. It cancels the previous inner Observable. |
-| `mergeMap` | `saveIds$.pipe(mergeMap(id => http.post(...)))` | Independent operations that may run concurrently. |
-| `concatMap` | `jobs$.pipe(concatMap(job => http.post(...)))` | Work that must execute in order, such as serial uploads or mutations. |
-| `exhaustMap` | `submitClicks$.pipe(exhaustMap(() => http.post(...)))` | Preventing duplicate submissions while the current operation is active. |
+| Operator     | Example                                                                                          | Best application                                                                                                |
+| ------------ | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
+| `map`        | `from([1, 2, 3]).pipe(map(value => value * 10))` emits `10`, `20`, `30`.                         | Transforming one value into another synchronously.                                                              |
+| `scan`       | `of(1, 2, 3).pipe(scan((total, value) => total + value, 0))` emits `1`, `3`, `6`.                | Accumulated state, counters, and running totals.                                                                |
+| `switchMap`  | `searchInput$.pipe(debounceTime(250), distinctUntilChanged(), switchMap(term => http.get(...)))` | Search or autocomplete, where only the latest request/result matters. It cancels the previous inner Observable. |
+| `mergeMap`   | `saveIds$.pipe(mergeMap(id => http.post(...)))`                                                  | Independent operations that may run concurrently.                                                               |
+| `concatMap`  | `jobs$.pipe(concatMap(job => http.post(...)))`                                                   | Work that must execute in order, such as serial uploads or mutations.                                           |
+| `exhaustMap` | `submitClicks$.pipe(exhaustMap(() => http.post(...)))`                                           | Preventing duplicate submissions while the current operation is active.                                         |
 
 ```typescript
-import { from, of } from 'rxjs';
-import { map, scan, concatMap, exhaustMap } from 'rxjs/operators';
+import { from, of } from "rxjs";
+import { map, scan, switchMap, concatMap, exhaustMap } from "rxjs/operators";
 
 from([1, 2, 3])
-  .pipe(map(value => value * 10))
-  .subscribe(value => console.log('map:', value));
-// Output: map: 10
-//         map: 20
-//         map: 30
+  .pipe(map((value) => value * 10))
+  .subscribe((value) => console.log("map:", value));
 
 from([1, 2, 3])
   .pipe(scan((total, value) => total + value, 0))
-  .subscribe(total => console.log(total));
-// Output: 1
-//         3
-//         6
+  .subscribe((total) => console.log(total));
 
-of('Angular', 'RxJS')
-  .pipe(switchMap(term => of(`${term} result`)))
-  .subscribe(value => console.log('switchMap:', value));
-// Output: switchMap: Angular result
-//         switchMap: RxJS result
+of("Angular", "RxJS")
+  .pipe(switchMap((term) => of(`${term} result`)))
+  .subscribe((value) => console.log("switchMap:", value));
 
 of(1, 2, 3)
-  .pipe(concatMap(value => of(`Saved ${value}`)))
-  .subscribe(value => console.log('concatMap:', value));
-// Output: Saved 1
-//         Saved 2
-//         Saved 3
+  .pipe(concatMap((value) => of(`Saved ${value}`)))
+  .subscribe((value) => console.log("concatMap:", value));
 
 of(1, 2, 3)
-  .pipe(exhaustMap(value => of(`Submitted ${value}`)))
-  .subscribe(value => console.log('exhaustMap:', value));
-// Output: Submitted 1
-//         Submitted 2
-//         Submitted 3
+  .pipe(exhaustMap((value) => of(`Submitted ${value}`)))
+  .subscribe((value) => console.log("exhaustMap:", value));
+```
+
+**Expected output:**
+
+```text
+map: 10
+map: 20
+map: 30
+1
+3
+6
+switchMap: Angular result
+switchMap: RxJS result
+concatMap: Saved 1
+concatMap: Saved 2
+concatMap: Saved 3
+exhaustMap: Submitted 1
+exhaustMap: Submitted 2
+exhaustMap: Submitted 3
 ```
 
 For synchronous examples, `concatMap` and `exhaustMap` emit every value because no inner Observable is still active. For real HTTP operations, `exhaustMap` ignores new source emissions while an inner request is active.
@@ -5512,185 +5524,212 @@ For HTTP calls, `switchMap` is best for replacing an older request with the newe
 
 ##### Filtering and control operators
 
-| Operator | Example | Best application |
-| --- | --- | --- |
-| `filter` | `values$.pipe(filter(value => value > 10))` | Passing only values that satisfy a condition. |
-| `take` | `interval(1000).pipe(take(5))` | Completing after a fixed number of emissions. |
-| `debounceTime` | `searchInput$.pipe(debounceTime(300))` | Waiting until the user pauses typing or triggering an action after inactivity. |
-| `distinctUntilChanged` | `searchInput$.pipe(distinctUntilChanged())` | Avoiding duplicate values that follow each other, such as repeated search terms. |
-| `takeUntil` | `request$.pipe(takeUntil(destroy$))` | Canceling or completing a stream when another Observable emits or completes; often used for component cleanup. |
+| Operator               | Example                                     | Best application                                                                                               |
+| ---------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `filter`               | `values$.pipe(filter(value => value > 10))` | Passing only values that satisfy a condition.                                                                  |
+| `take`                 | `interval(1000).pipe(take(5))`              | Completing after a fixed number of emissions.                                                                  |
+| `debounceTime`         | `searchInput$.pipe(debounceTime(300))`      | Waiting until the user pauses typing or triggering an action after inactivity.                                 |
+| `distinctUntilChanged` | `searchInput$.pipe(distinctUntilChanged())` | Avoiding duplicate values that follow each other, such as repeated search terms.                               |
+| `takeUntil`            | `request$.pipe(takeUntil(destroy$))`        | Canceling or completing a stream when another Observable emits or completes; often used for component cleanup. |
 
 ```typescript
-import { from, interval, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
+import { from, interval, Subject } from "rxjs";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  take,
+  takeUntil,
+} from "rxjs/operators";
 
 from([5, 12, 8, 20])
-  .pipe(filter(value => value > 10))
-  .subscribe(value => console.log('filter:', value));
-// Output: filter: 12
-//         filter: 20
+  .pipe(filter((value) => value > 10))
+  .subscribe((value) => console.log("filter:", value));
 
 interval(1000)
   .pipe(take(3))
-  .subscribe(value => console.log('take:', value));
-// Output: take: 0
-//         take: 1
-//         take: 2
+  .subscribe((value) => console.log("take:", value));
 
 const search$ = new Subject<string>();
 search$
   .pipe(debounceTime(300), distinctUntilChanged())
-  .subscribe(value => console.log('search:', value));
+  .subscribe((value) => console.log("search:", value));
 
-search$.next('an');
-search$.next('ang');
-search$.next('angular');
-// After 300 ms with no new value:
-// Output: search: angular
+search$.next("an");
+search$.next("ang");
+search$.next("angular");
 
 const destroy$ = new Subject<void>();
 interval(500)
   .pipe(takeUntil(destroy$))
-  .subscribe(value => console.log('takeUntil:', value));
+  .subscribe((value) => console.log("takeUntil:", value));
 
 setTimeout(() => {
   destroy$.next();
   destroy$.complete();
 }, 1300);
-// Output: takeUntil: 0
-//         takeUntil: 1
-//         takeUntil: 2
+```
+
+**Expected output:**
+
+```text
+filter: 12
+filter: 20
+take: 0
+take: 1
+take: 2
+search: angular
+takeUntil: 0
+takeUntil: 1
+takeUntil: 2
 ```
 
 In modern Angular code, prefer `takeUntilDestroyed()` for component or injection-context cleanup where it fits; `takeUntil` is useful for custom cancellation events or streams outside the Angular lifecycle.
 
 ##### Combination operators
 
-| Operator | Example | Best application |
-| --- | --- | --- |
-| `combineLatest` | `combineLatest([status$, selectedUser$])` | Using the latest value from each stream whenever any stream changes. |
-| `forkJoin` | `forkJoin({ user: http.get('/user'), orders: http.get('/orders') })` | Waiting for several independent HTTP requests to complete, then returning the final values together. |
-| `merge` | `merge(save$, delete$, refresh$)` | Processing emissions from multiple streams as one stream. |
-| `concat` | `concat(firstRequest$, secondRequest$)` | Starting streams sequentially and waiting for each to complete before starting the next. |
+| Operator         | Example                                                                                   | Best application                                                                                                                 |
+| ---------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `combineLatest`  | `combineLatest([status$, selectedUser$])`                                                 | Using the latest value from each stream whenever any stream changes.                                                             |
+| `forkJoin`       | `forkJoin({ user: http.get('/user'), orders: http.get('/orders') })`                      | Waiting for several independent HTTP requests to complete, then returning the final values together.                             |
+| `merge`          | `merge(save$, delete$, refresh$)`                                                         | Processing emissions from multiple streams as one stream.                                                                        |
+| `concat`         | `concat(firstRequest$, secondRequest$)`                                                   | Starting streams sequentially and waiting for each to complete before starting the next.                                         |
 | `withLatestFrom` | `submit$.pipe(withLatestFrom(currentUser$), map(([submit, user]) => ({ submit, user })))` | Adding the latest value from a secondary stream to an event stream. It does not subscribe to that secondary stream as a trigger. |
 
 ```typescript
-import { combineLatest, forkJoin, merge, of, Subject } from 'rxjs';
-import { map, withLatestFrom } from 'rxjs/operators';
+import { combineLatest, forkJoin, merge, of, Subject } from "rxjs";
+import { map, withLatestFrom } from "rxjs/operators";
 
 const status$ = new Subject<string>();
 const selectedUser$ = new Subject<string>();
 
-combineLatest([status$, selectedUser$])
-  .subscribe(([status, user]) => console.log('combineLatest:', status, user));
+combineLatest([status$, selectedUser$]).subscribe(([status, user]) =>
+  console.log("combineLatest:", status, user),
+);
 
-status$.next('loading');
-selectedUser$.next('Harsha');
-status$.next('ready');
-// Output: combineLatest: loading Harsha
-//         combineLatest: ready Harsha
+status$.next("loading");
+selectedUser$.next("Harsha");
+status$.next("ready");
 
 forkJoin({
-  user: of({ id: 1, name: 'Harsha' }),
-  orders: of(['Order A', 'Order B']),
-}).subscribe(result => console.log('forkJoin:', result));
-// Output: forkJoin: {
-//   user: { id: 1, name: 'Harsha' },
-//   orders: ['Order A', 'Order B']
-// }
+  user: of({ id: 1, name: "Harsha" }),
+  orders: of(["Order A", "Order B"]),
+}).subscribe((result) => console.log("forkJoin:", result));
 
 const submit$ = new Subject<string>();
-const currentUser$ = of('Harsha');
+const currentUser$ = of("Harsha");
 
 submit$
   .pipe(
     withLatestFrom(currentUser$),
-    map(([submit, user]) => ({ submit, user }))
+    map(([submit, user]) => ({ submit, user })),
   )
-  .subscribe(result => console.log('withLatestFrom:', result));
+  .subscribe((result) => console.log("withLatestFrom:", result));
 
-submit$.next('Save');
-// Output: withLatestFrom: { submit: 'Save', user: 'Harsha' }
+submit$.next("Save");
+```
+
+**Expected output:**
+
+```text
+combineLatest: loading Harsha
+combineLatest: ready Harsha
+forkJoin: { user: { id: 1, name: 'Harsha' }, orders: [ 'Order A', 'Order B' ] }
+withLatestFrom: { submit: 'Save', user: 'Harsha' }
 ```
 
 Use `forkJoin` only with sources that complete; use `combineLatest` when the latest state of several streams is needed. Do not use `forkJoin` for infinite streams or a stream that may never complete.
 
 ##### Error-handling operators
 
-| Operator | Example | Best application |
-| --- | --- | --- |
+| Operator     | Example                                                                           | Best application                                                                   |
+| ------------ | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | `catchError` | `http.get('/api/users').pipe(catchError(error => of({ fallback: true, error })))` | Converting an error into a fallback value or redirecting to a recovery Observable. |
-| `retry` | `http.get('/api/status').pipe(retry({ count: 2, delay: 1000 }))` | Retrying a safe, transient operation a bounded number of times. |
-| `timeout` | `http.get('/api/report').pipe(timeout(5000))` | Failing an operation after a maximum wait time. |
+| `retry`      | `http.get('/api/status').pipe(retry({ count: 2, delay: 1000 }))`                  | Retrying a safe, transient operation a bounded number of times.                    |
+| `timeout`    | `http.get('/api/report').pipe(timeout(5000))`                                     | Failing an operation after a maximum wait time.                                    |
 
 ```typescript
-import { catchError, of, throwError, timeout, timer } from 'rxjs';
-import { retry } from 'rxjs/operators';
+import { catchError, of, throwError, timeout, timer } from "rxjs";
+import { retry } from "rxjs/operators";
 
-throwError(() => new Error('Server unavailable'))
+throwError(() => new Error("Server unavailable"))
   .pipe(
     timeout(5000),
     retry({ count: 2, delay: 1000 }),
-    catchError(error => {
-      console.error('catchError:', error.message);
+    catchError((error) => {
+      console.error("catchError:", error.message);
       return of([]);
-    })
+    }),
   )
-  .subscribe(users => console.log('fallback:', users));
-// Retry: 2 attempts, each separated by 1000 ms
-// Output: catchError: Server unavailable
-//         fallback: []
+  .subscribe((users) => console.log("fallback:", users));
 
 timer(200)
   .pipe(timeout(100))
   .subscribe({
-    error: error => console.log('timeout:', error.message),
+    error: (error) => console.log("timeout:", error.message),
   });
-// Output: timeout: Timeout has occurred
 ```
+
+**Expected output:**
+
+```text
+catchError: Server unavailable
+fallback: []
+timeout: Timeout has occurred
+```
+
+The retry example makes two attempts, with a 1000 ms delay between them.
 
 Place `retry` carefully: retry mutations only when idempotency and the API contract make duplicate execution safe. `catchError` should decide between a fallback, a redirect, or rethrowing, and should not silently hide unexpected errors.
 
 ##### Side-effect and sharing operators
 
-| Operator | Example | Best application |
-| --- | --- | --- |
-| `tap` | `users$.pipe(tap(users => console.log(users)))` | Debugging, logging, or a side effect that does not change emitted values. |
-| `share` | `const shared$ = request$.pipe(share())` | Sharing one execution among subscribers without replaying an earlier value. |
+| Operator      | Example                                                                                          | Best application                                                                                           |
+| ------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| `tap`         | `users$.pipe(tap(users => console.log(users)))`                                                  | Debugging, logging, or a side effect that does not change emitted values.                                  |
+| `share`       | `const shared$ = request$.pipe(share())`                                                         | Sharing one execution among subscribers without replaying an earlier value.                                |
 | `shareReplay` | `const profile$ = http.get('/api/profile').pipe(shareReplay({ bufferSize: 1, refCount: true }))` | Caching one or more completed emissions for subscribers that subscribe later; useful for finite HTTP data. |
 
 ```typescript
-import { of, Subject, share, shareReplay, tap } from 'rxjs';
+import { of, Subject, share, shareReplay, tap } from "rxjs";
 
-const sharedRequest$ = of({ name: 'Harsha' }).pipe(
-  tap(profile => console.log('tap:', profile)),
-  shareReplay({ bufferSize: 1, refCount: true })
+const sharedRequest$ = of({ name: "Harsha" }).pipe(
+  tap((profile) => console.log("tap:", profile)),
+  shareReplay({ bufferSize: 1, refCount: true }),
 );
 
-sharedRequest$.subscribe(profile => console.log('subscriber 1:', profile));
-sharedRequest$.subscribe(profile => console.log('subscriber 2:', profile));
-// Output: tap: { name: 'Harsha' }
-//         subscriber 1: { name: 'Harsha' }
-//         subscriber 2: { name: 'Harsha' }
+sharedRequest$.subscribe((profile) => console.log("subscriber 1:", profile));
+sharedRequest$.subscribe((profile) => console.log("subscriber 2:", profile));
 
 const secondSubscriber$ = sharedRequest$;
-secondSubscriber$.subscribe(profile => console.log('late subscriber:', profile));
-// Output: late subscriber: { name: 'Harsha' }
+secondSubscriber$.subscribe((profile) =>
+  console.log("late subscriber:", profile),
+);
 
 const event$ = new Subject<number>();
 const sharedEvent$ = event$.pipe(share());
 
-sharedEvent$.subscribe(value => console.log('share subscriber A:', value));
-sharedEvent$.subscribe(value => console.log('share subscriber B:', value));
+sharedEvent$.subscribe((value) => console.log("share subscriber A:", value));
+sharedEvent$.subscribe((value) => console.log("share subscriber B:", value));
 
 event$.next(1);
 event$.next(2);
-// Output: share subscriber A: 1
-//         share subscriber B: 1
-//         share subscriber A: 2
-//         share subscriber B: 2
-// `share()` does not replay old emissions to a subscriber that joins later.
 ```
+
+**Expected output:**
+
+```text
+tap: { name: 'Harsha' }
+subscriber 1: { name: 'Harsha' }
+subscriber 2: { name: 'Harsha' }
+late subscriber: { name: 'Harsha' }
+share subscriber A: 1
+share subscriber B: 1
+share subscriber A: 2
+share subscriber B: 2
+```
+
+`share()` does not replay old emissions to a subscriber that joins later.
 
 Use `shareReplay` with an intentional lifetime and cache policy; it can retain stale data or continue referencing canceled/unbounded streams. For Angular HTTP, `shareReplay` may be unnecessary when only one `AsyncPipe` subscriber or a short-lived request is involved.
 
